@@ -2,7 +2,7 @@
 コンビニのネップリを共有するためのサイト
 
 # 環境変数について
-.envに以下の内容を記述します
+```.env```に以下の内容を記述します
 ```
 SHEET_PROJECT_ID=(project_id)
 SHEET_PRIVATE_KEY_ID=(private_key_id)
