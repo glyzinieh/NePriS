@@ -16,9 +16,11 @@
         <link rel="stylesheet" href="/static/css/layout.css">
         <!-- titleを設定 -->
         <title>{% block title %}{% endblock %}｜ネップリ共有サイト(β)</title>
+        <!-- faviconを指定 -->
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     </head>
     <body>
-        <header class="sticky-top" style="height: 30px; background-color:aqua">
+        <header class="sticky-top" style="background-color:aqua">
             <h1>ネップリ共有サイト(β)</h1>
             <a href="/">Home</a>
             <a href="/about/">About</a>
