@@ -11,6 +11,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+        <!-- Google Search Console -->
+        <meta name="google-site-verification" content="byLrHZ5BNJnMVg_DpxNwJQ6mgTutlQjrwErNgzCA6Dc" />
 
         <!-- cssを読み込み -->
         <link rel="stylesheet" href="/static/css/layout.css">
@@ -18,11 +20,9 @@
         <title>{% block title %}{% endblock %}｜ネップリ共有サイト(β)</title>
         <!-- faviconを指定 -->
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-
-        <meta name="google-site-verification" content="byLrHZ5BNJnMVg_DpxNwJQ6mgTutlQjrwErNgzCA6Dc" />
     </head>
     <body>
-        <header class="sticky-top" style="background-color:aqua">
+        <header class="sticky-top" style="background-color: #bfeef4">
             <div class="container">
                 <h1>ネップリ共有サイト(β)</h1>
                 <a href="/">Home</a>
@@ -30,7 +30,7 @@
                 <a href="/contact/">Contact</a>
             </div>
         </header>
-        <main class="container">
+        <main class="container py-3">
             {% block content %}
             {% endblock %}
         </main>

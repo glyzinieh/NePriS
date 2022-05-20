@@ -4,8 +4,8 @@ from os.path import dirname, join
 import gspread
 from dotenv import load_dotenv
 from flask import Flask, render_template
-from google.oauth2.service_account import Credentials
 from flask_sitemap import Sitemap
+from google.oauth2.service_account import Credentials
 
 # ローカル環境で環境編集を取得
 dotenv_path = join(dirname(__file__), '.env')
@@ -60,6 +60,13 @@ def contact():
 @app.route('/contact/thanks/')
 def contact_thanks():
     return render_template('contact_thanks.html')
+
+@app.route('/record/')
+def record():
+    return render_template('record.html')
+@ext.register_generator
+def record():
+    yield 'record', {}
 
 if __name__ == "__main__":
     app.run(port=8000,debug=True)
