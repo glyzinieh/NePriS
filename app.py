@@ -1,7 +1,5 @@
 import os
 from os.path import dirname, join
-import re
-from tkinter import Y
 
 import gspread
 from dotenv import load_dotenv
