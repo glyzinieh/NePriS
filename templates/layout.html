@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- UTF-8に指定 -->
         <meta charset="utf-8">
+        <!-- viewportを設定 -->
         <meta name="viewport" content="width=device-width,initial-scale=1">
+        <!-- titleを設定 -->
         <title>{% block title %}{% endblock %}｜ネップリ共有サイト(β)</title>
-        <link rel="stylesheet" href="/static/css/layout_style.css">
+        <!-- cssを読み込み -->
+        <link rel="stylesheet" href="/static/css/layout.css">
+        <!-- フォントを読み込み -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -17,7 +25,9 @@
                 </ul>
             </nav>
         </header>
-        {% block content %}
-        {% endblock %}
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
     </body>
 </html>

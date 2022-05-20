@@ -1,5 +1,6 @@
 body {
-    padding-top: 50px; /* ヘッダーの後ろに要素が隠れないようにするため */
+    padding: 50px 15px 15px;
+    font-family: 'M PLUS Rounded 1c', sans-serif; /* フォントを指定 */
 }
 
 header {
