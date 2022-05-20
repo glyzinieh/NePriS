@@ -1,10 +1,9 @@
 import os
 from os.path import dirname, join
-import re
 
 import gspread
 from dotenv import load_dotenv
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 from google.oauth2.service_account import Credentials
 
 # ローカル環境で環境編集を取得
@@ -46,6 +45,10 @@ def about():
 @app.route('/contact/')
 def contact():
     return render_template('contact.html')
+
+@app.route('/favicon.ico/')
+def favicon():
+    return send_from_directory('/favicon.ico/')
 
 if __name__ == "__main__":
     app.run(port=8000,debug=True)
