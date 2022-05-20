@@ -1,11 +1,13 @@
 import os
 from os.path import dirname, join
 import re
+from tkinter import Y
 
 import gspread
 from dotenv import load_dotenv
 from flask import Flask, render_template
 from google.oauth2.service_account import Credentials
+from flask_sitemap import Sitemap
 
 # ローカル環境で環境編集を取得
 dotenv_path = join(dirname(__file__), '.env')
@@ -34,18 +36,28 @@ gc = gspread.authorize(credentials)
 database_sheet = gc.open_by_key(os.environ['SHEET_DATABASE_KEY'])
 
 app = Flask(__name__)
+ext = Sitemap(app=app)
 
 @app.route('/')
 def index():
     return render_template('index.html')
+@ext.register_generator
+def index():
+    yield 'index', {}
 
 @app.route('/about/')
 def about():
     return render_template('about.html')
+@ext.register_generator
+def about():
+    yield 'about', {}
 
 @app.route('/contact/')
 def contact():
     return render_template('contact.html')
+@ext.register_generator
+def contact():
+    yield 'contact', {}
 
 @app.route('/contact/thanks/')
 def contact_thanks():

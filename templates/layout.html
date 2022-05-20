@@ -21,12 +21,14 @@
     </head>
     <body>
         <header class="sticky-top" style="background-color:aqua">
-            <h1>ネップリ共有サイト(β)</h1>
-            <a href="/">Home</a>
-            <a href="/about/">About</a>
-            <a href="/contact/">Contact</a>
+            <div class="container">
+                <h1>ネップリ共有サイト(β)</h1>
+                <a href="/">Home</a>
+                <a href="/about/">About</a>
+                <a href="/contact/">Contact</a>
+            </div>
         </header>
-        <main>
+        <main class="container">
             {% block content %}
             {% endblock %}
         </main>
