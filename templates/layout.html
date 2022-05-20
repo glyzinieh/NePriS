@@ -18,15 +18,11 @@
         <title>{% block title %}{% endblock %}｜ネップリ共有サイト(β)</title>
     </head>
     <body>
-        <header>
+        <header class="sticky-top" style="height: 30px; background-color:aqua">
             <h1>ネップリ共有サイト(β)</h1>
-            <nav class="gnav">
-                <ul class="menu">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about/">About</a></li>
-                    <li><a href="/contact/">Contact</a></li>
-                </ul>
-            </nav>
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+            <a href="/contact/">Contact</a>
         </header>
         <main>
             {% block content %}
