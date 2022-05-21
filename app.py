@@ -1,8 +1,9 @@
-import client
 import os
 from os.path import dirname, join
 
+import client
 import gspread
+import requests
 from dotenv import load_dotenv
 from flask import Flask, render_template
 from flask_sitemap import Sitemap
@@ -70,6 +71,10 @@ def record():
 @ext.register_generator
 def record():
     yield 'record', {}
+
+@app.route('/record/thanks/', methods=['POST'])
+def record_thanks():
+    return render_template('record_thanks.html')
 
 if __name__ == "__main__":
     app.run(port=8000,debug=True)

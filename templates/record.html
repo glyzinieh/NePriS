@@ -4,8 +4,31 @@
 
 {% block content %}
 <p>現在、セブンイレブン・ファミリーマート・ローソンのネットプリントにのみ対応しております。</p>
-<p>
-    登録するには以下のボタンをクリックしてください。<br>
-    <a class="btn btn-primary" href="https://forms.gle/97M1LyvWSReuUuzD6" role="button" target="_blank" rel="noopener noreferrer">登録（外部サイトにジャンプします）</a>
-</p>
+<form action="/record/thanks/" method="post" enctype="multipart/form-data">
+    <div class="form-gourp">
+        <label>メールアドレス(必須)</label>
+        <input type="email" class="form-control" name="email" required>
+    </div>
+    <div class="form-group">
+        <label>ニックネーム(必須)</label>
+        <input type="text" class="form-control" name="name" required>
+    </div>
+    <div class="form-group">
+        <label>タイトル(必須)</label>
+        <input type="text" class="form-control" name="title" required>
+    </div>
+    <div class="form-group">
+        <label>画像(必須)</label>
+        <input type="file" class="form-control" name="image" accept="image/png, image/jpeg" required>
+    </div>
+    <div class="form-group">
+        <label>有効期限(必須)</label>
+        <input type="date" class="form-control" name="date" required>
+    </div>
+    <div class="form-group">
+        <label>備考(任意)</label>
+        <textarea rows="7" class="form-control" name="note"></textarea>
+    </div>
+    <p>予約番号</p>
+</form>
 {% endblock %}
