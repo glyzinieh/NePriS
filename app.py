@@ -1,3 +1,4 @@
+import client
 import os
 from os.path import dirname, join
 
@@ -32,6 +33,8 @@ gc = gspread.authorize(credentials)
 
 # データベースのシートを開く
 database_sheet = gc.open_by_key(os.environ['SHEET_DATABASE_KEY'])
+
+http_data = client.file_send(os.environ['DB_URL'],os.environ['DB_TOKEN'])
 
 app = Flask(__name__)
 ext = Sitemap(app=app)
