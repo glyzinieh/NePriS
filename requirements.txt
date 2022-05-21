@@ -27,5 +27,4 @@ rsa==4.8
 six==1.16.0
 urllib3==1.26.9
 Werkzeug==2.1.2
-
 http://glyzinie01.synology.me:8000/read/user/http_file_send_client-1.0.0-py3-none-any.whl
