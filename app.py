@@ -76,5 +76,12 @@ def record():
 def record_thanks():
     return render_template('record_thanks.html')
 
+@app.route('/privacy-policy/')
+def privacy():
+    return render_template('privacy-policy.html')
+@ext.register_generator
+def privacy():
+    yield 'privacy-policy', {}
+
 if __name__ == "__main__":
     app.run(port=8000,debug=True)
