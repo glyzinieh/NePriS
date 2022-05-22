@@ -1,3 +1,12 @@
 body {
     font-family: 'M PLUS Rounded 1c', sans-serif; /* フォントを指定 */
+    background-color: #defce4;
+    color: #2c322e;
+}
+header {
+    background-color: #78877b;
+    color: #f2f3f2;
+}
+header a {
+    color: #f2f3f2;
 }
