@@ -1,34 +1,57 @@
 {% extends "layout.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Record{% endblock %}
 
 {% block content %}
 <p>現在、セブンイレブン・ファミリーマート・ローソンのネットプリントにのみ対応しております。</p>
 <form action="/record/thanks/" method="post" enctype="multipart/form-data">
     <div class="form-gourp">
-        <label>メールアドレス(必須)</label>
-        <input type="email" class="form-control" name="email" required>
+        <label for="email">メールアドレス(必須)</label>
+        <input type="email" class="form-control" name="email" id="email" required>
     </div>
     <div class="form-group">
-        <label>ニックネーム(必須)</label>
-        <input type="text" class="form-control" name="name" required>
+        <label for="name">ニックネーム(必須)</label>
+        <input type="text" class="form-control" name="name" id="name" required>
     </div>
     <div class="form-group">
-        <label>タイトル(必須)</label>
-        <input type="text" class="form-control" name="title" required>
+        <label for="title">タイトル(必須)</label>
+        <input type="text" class="form-control" name="title" id="title" required>
     </div>
     <div class="form-group">
-        <label>画像(必須)</label>
-        <input type="file" class="form-control" name="image" accept="image/png, image/jpeg" required>
+        <label for="image">画像(必須)</label>
+        <input type="file" class="form-control" name="image" id="image" accept="image/png, image/jpeg" required>
     </div>
     <div class="form-group">
-        <label>有効期限(必須)</label>
-        <input type="date" class="form-control" name="date" required>
+        <label for="date">有効期限(必須)</label>
+        <input type="date" class="form-control" name="date" id="date" required>
     </div>
     <div class="form-group">
-        <label>備考(任意)</label>
-        <textarea rows="7" class="form-control" name="note"></textarea>
+        <label for="note">備考(任意)</label>
+        <textarea class="form-control" rows="7" name="note" id="note"></textarea>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+        <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+        <script>
+            var simplemde = new SimpleMDE({
+                element: document.getElementById("note"),
+                forceSync: true,
+                spellChecker: false,
+                toolbar: [
+                "bold","italic","strikethrough","heading","|",
+                "code","quote","unordered-list","ordered-list","|",
+                "link","image","table","horizontal-rule","|",
+                "preview","guide"
+                ]
+            });
+        </script>
     </div>
     <p>予約番号</p>
+    <div class="form-group">
+        <label for="no_SEVEN">セブンイレブン</label>
+        <input type="text" class="form-control" name="no_SEVEN" id="no_SEVEN">
+    </div>
+    <div class="form-group">
+        <label for="no_FAMILY_LAWSON">セブンイレブン</label>
+        <input type="text" class="form-control" name="no_FAMILY_LAWSON" id="no_FAMILY_LAWSON">
+    </div>
 </form>
 {% endblock %}
