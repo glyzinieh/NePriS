@@ -40,43 +40,43 @@ http_data = client.file_send(os.environ['DB_URL'],os.environ['DB_TOKEN'])
 app = Flask(__name__)
 ext = Sitemap(app=app)
 
-@app.route('/')
+@app.get('/')
 def index():
     return render_template('index.html')
 @ext.register_generator
 def index():
     yield 'index', {}
 
-@app.route('/about/')
+@app.get('/about/')
 def about():
     return render_template('about.html')
 @ext.register_generator
 def about():
     yield 'about', {}
 
-@app.route('/contact/')
+@app.get('/contact/')
 def contact():
     return render_template('contact.html')
 @ext.register_generator
 def contact():
     yield 'contact', {}
 
-@app.route('/contact/thanks/')
+@app.get('/contact/thanks/')
 def contact_thanks():
     return render_template('contact_thanks.html')
 
-@app.route('/record/')
+@app.get('/record/')
 def record():
     return render_template('record.html')
 @ext.register_generator
 def record():
     yield 'record', {}
 
-@app.route('/record/thanks/', methods=['POST'])
+@app.post('/record/thanks/')
 def record_thanks():
     return render_template('record_thanks.html')
 
-@app.route('/privacy-policy/')
+@app.get('/privacy-policy/')
 def privacy():
     return render_template('privacy-policy.html')
 @ext.register_generator
