@@ -61,10 +61,6 @@ def contact():
 def contact():
     yield 'contact', {}
 
-@app.get('/contact/thanks/')
-def contact_thanks():
-    return render_template('contact_thanks.html')
-
 @app.get('/record/')
 def record():
     return render_template('record.html')

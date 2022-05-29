@@ -5,25 +5,19 @@
 {% block content %}
 <h2>Contact</h2>
 <p>ご意見・ご要望などはこちらからお寄せください。</p>
-<form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSfazq7sTbok_7s2gEmY66sha-rEBM_k-Iyod7mV7FGFbjXVzA/formResponse" method="post" target="hidden_iframe" onsubmit="submitted=true;">
-    <div class="form-group">
-        <label>メールアドレス(任意)</label>
-        <input type="email" class="form-control" name="entry.2140259452">
-    </div>
-    <div class="form-group">
-        <label>お問い合わせ内容(必須)</label>
-        <textarea rows="5" class="form-control" name="entry.1607793954" required></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">送信</button>
-</form>
-<script type="text/javascript">
-    let submitted=false;
-
-    function page_transition() {
-        if(submitted){
-            window.location = '/contact/thanks/'
-        }    
-    }
-</script>
-<iframe name="hidden_iframe" style="display:none;" onload="page_transition()"></iframe>
+<h3>Eメール</h3>
+<p>
+    返信が必要な場合はこちらからお問い合わせください。<br>
+    <a href="mailto:wisteriatp+share-neppuri@gmail.com">wisteriatp+share-neppuri@gmail.com</a>
+</p>
+<h3>Googleフォーム</h3>
+<p>
+    <a href="https://forms.gle/UidibgS6PdavU3RE7" target="_blank" rel="noopener noreferrer">こちら</a>からお問い合わせください。<br>
+    ※返信できませんのでご注意ください。
+</p>
+<h3>Github</h3>
+<p>
+    技術的な問題の場合は<a href="https://github.com/glyzinieh/share-neppuri/discussions" target="_blank" rel="noopener noreferrer">こちら</a>からもお問い合わせいただけます。<br>
+    ※Githubアカウントが必要です。
+</p>
 {% endblock %}
