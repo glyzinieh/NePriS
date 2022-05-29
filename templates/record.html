@@ -4,30 +4,32 @@
 
 {% block content %}
 <p>現在、セブンイレブン・ファミリーマート・ローソンのネットプリントにのみ対応しております。</p>
-<form action="/record/thanks/" method="post" enctype="multipart/form-data">
-    <div class="form-gourp">
-        <label for="email">メールアドレス(必須)</label>
-        <input type="email" class="form-control" name="email" id="email" placeholder="taro@example.com" required>
+<form class="needs-validation" action="/record/thanks/" method="post" enctype="multipart/form-data" novalidate>
+    <div class="mb-3">
+        <label for="email" class="form-label">メールアドレス<span class="badge bg-danger">必須</span></label>
+        <input type="email" class="form-control" id="email" required>
     </div>
-    <div class="form-group">
-        <label for="name">ニックネーム(必須)</label>
-        <input type="text" class="form-control" name="name" id="name" placeholder="たろう" required>
+    <div class="mb-3">
+        <label for="name" class="form-label">ニックネーム<span class="badge bg-danger">必須</span></label>
+        <input type="text" class="form-control" id="name" required>
     </div>
-    <div class="form-group">
-        <label for="title">タイトル(必須)</label>
-        <input type="text" class="form-control" name="title" id="title" required>
+    <div class="mb-3">
+        <label for="title" class="form-label">タイトル<span class="badge bg-danger">必須</span></label>
+        <input type="text" class="form-control" id="title" required>
     </div>
-    <div class="form-group">
-        <label for="image">画像(必須)</label>
-        <input type="file" class="form-control" name="image" id="image" accept="image/png, image/jpeg" required>
+    <div class="mb-3">
+        <label for="image" class="form-label">画像<span class="badge bg-danger">必須</span></label>
+        <input type="file" class="form-control" id="image" required>
     </div>
-    <div class="form-group">
-        <label for="date">有効期限(必須)</label>
-        <input type="date" class="form-control" name="date" id="date" required>
+    <div class="mb-3">
+        <label for="date" class="form-label">有効期限<span class="badge bg-danger">必須</span></label>
+        <input type="date" class="form-control" id="date" required>
     </div>
-    <div class="form-group">
-        <label for="note">備考(任意)</label>
-        <textarea class="form-control" rows="7" name="note" id="note"></textarea>
+    <div class="mb-3">
+        <label for="note" class="form-label">備考<span class="badge bg-info text-dark">任意</span></label>
+        <div id="note-help" class="form-text">作品の紹介や用紙サイズなどをご入力ください。マークダウンが利用できます。</div>
+        <textarea class="form-control" id="note" rows="7" aria-describedby="note-help"></textarea>
+        <!-- SimpleMDEの読み込み -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
         <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
         <script>
@@ -44,33 +46,15 @@
             });
         </script>
     </div>
-    予約番号(どちらか必須)
-    <div class="form-group">
-        <label for="no_SEVEN">セブンイレブン(半角大文字英数字8文字)</label>
-        <input type="text" class="form-control" name="no_SEVEN" id="no_SEVEN" pattern="^([A-Z0-9]{8})$" onInput="validation_check(this)" required>
+    <div class="mb-1">
+        <label>予約番号<span class="badge bg-danger">どちらか必須</span></label>
     </div>
-    <div class="form-group">
-        <label for="no_FAMILY_LAWSON">ファミリーマート・ローソン(半角大文字英数字10文字)</label>
-        <input type="text" class="form-control" name="no_FAMILY" id="no_FAMILY" pattern="^([A-Z0-9]{10})$" onInput="validation_check(this)" required>
+    <div class="mb-3">
+        <label for="no_seven" class="form-label">セブンイレブン</label>
+        <input type="text" class="form-control" id="no_seven" required>
+        <label for="no_family" class="form-label">ファミリーマート・ローソン</label>
+        <input type="text" class="form-control" id="no_family" required>
     </div>
-    <script>
-        const no_SEVEN = document.getElementById('no_SEVEN');
-        const no_FAMILY = document.getElementById('no_FAMILY');
-        function validation_check($this) {
-            if ($this.value) {
-                if ($this==no_SEVEN) {
-                    no_FAMILY.removeAttribute('required');
-                } else if ($this==no_FAMILY) {
-                    no_SEVEN.removeAttribute('required');
-                }
-            } else {
-                if ($this==no_SEVEN) {
-                    no_FAMILY.setAttribute('required','required');
-                } else if ($this==no_FAMILY) {
-                    no_SEVEN.setAttribute('required','required');
-                }
-            }
-        }
-    </script>
+    <button type="submit" class="btn btn-primary">登録</button>
 </form>
 {% endblock %}
