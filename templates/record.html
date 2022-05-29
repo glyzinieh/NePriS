@@ -48,12 +48,32 @@
     </div>
     <div class="mb-1">
         <label>予約番号<span class="badge bg-danger">どちらか必須</span></label>
+        <div class="form-text">両方入力も可能です。</div>
     </div>
     <div class="mb-3">
         <label for="no_seven" class="form-label">セブンイレブン</label>
-        <input type="text" class="form-control" id="no_seven" required>
+        <input type="text" class="form-control" id="no_seven" onInput="either_required(this)" required="required">
         <label for="no_family" class="form-label">ファミリーマート・ローソン</label>
-        <input type="text" class="form-control" id="no_family" required>
+        <input type="text" class="form-control" id="no_family" onInput="either_required(this)"  required="required">
+        <script>
+            const no_seven = document.getElementById('no_seven');
+            const no_family = document.getElementById('no_family');
+            function either_required($this) {
+                if ($this.value) {
+                    if ($this==no_seven) {
+                        no_family.removeAttribute('required');
+                    } else if ($this==no_family) {
+                        no_seven.removeAttribute('required');
+                    }
+                } else {
+                    if ($this==no_seven) {
+                        no_family.setAttribute('required','required');
+                    } else if ($this==no_family) {
+                        no_seven.setAttribute('required','required');
+                    }
+                }
+            }
+        </script>
     </div>
     <button type="submit" class="btn btn-primary">登録</button>
 </form>
