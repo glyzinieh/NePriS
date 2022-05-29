@@ -8,22 +8,54 @@
     <div class="mb-3">
         <label for="email" class="form-label">メールアドレス<span class="badge bg-danger">必須</span></label>
         <input type="email" class="form-control" id="email" required>
+        <div class="invalid-feedback">有効なメールアドレスを入力してください。</div>
     </div>
     <div class="mb-3">
         <label for="name" class="form-label">ニックネーム<span class="badge bg-danger">必須</span></label>
         <input type="text" class="form-control" id="name" required>
+        <div class="invalid-feedback">必須項目です。</div>
     </div>
     <div class="mb-3">
         <label for="title" class="form-label">タイトル<span class="badge bg-danger">必須</span></label>
         <input type="text" class="form-control" id="title" required>
+        <div class="invalid-feedback">必須項目です。</div>
     </div>
-    <div class="mb-3">
+    <div class="mb-2">
         <label for="image" class="form-label">画像<span class="badge bg-danger">必須</span></label>
-        <input type="file" class="form-control" id="image" required>
+        <input type="file" class="form-control" id="image"  onChange="imgPreView(event)" required>
+        <div class="invalid-feedback">必須項目です。</div>
     </div>
+	<div class="mb-3">
+		<div id="preview"></div>
+		<script>
+            function imgPreView(event) {
+                var file = event.target.files[0];
+                var reader = new FileReader();
+                var preview = document.getElementById("preview");
+                var previewImage = document.getElementById("previewImage");
+                 
+                if(previewImage != null) {
+					preview.removeChild(previewImage);
+                }
+                reader.onload = function(event) {
+					var img = document.createElement("img");
+					img.setAttribute("src", reader.result);
+					img.setAttribute("id", "previewImage");
+
+					img.setAttribute("class","img-fluid border border-2")
+					img.setAttribute("max-width","100%");
+					img.setAttribute("height","auto");
+					preview.appendChild(img);
+                };
+               
+                reader.readAsDataURL(file);
+            }
+        </script>
+	</div>
     <div class="mb-3">
         <label for="date" class="form-label">有効期限<span class="badge bg-danger">必須</span></label>
         <input type="date" class="form-control" id="date" required>
+        <div class="invalid-feedback">必須項目です。</div>
     </div>
     <div class="mb-3">
         <label for="note" class="form-label">備考<span class="badge bg-info text-dark">任意</span></label>
@@ -50,31 +82,35 @@
         <label>予約番号<span class="badge bg-danger">どちらか必須</span></label>
         <div class="form-text">両方入力も可能です。</div>
     </div>
-    <div class="mb-3">
+    <div class="mb-1">
         <label for="no_seven" class="form-label">セブンイレブン</label>
-        <input type="text" class="form-control" id="no_seven" onInput="either_required(this)" required="required">
-        <label for="no_family" class="form-label">ファミリーマート・ローソン</label>
-        <input type="text" class="form-control" id="no_family" onInput="either_required(this)"  required="required">
-        <script>
-            const no_seven = document.getElementById('no_seven');
-            const no_family = document.getElementById('no_family');
-            function either_required($this) {
-                if ($this.value) {
-                    if ($this==no_seven) {
-                        no_family.removeAttribute('required');
-                    } else if ($this==no_family) {
-                        no_seven.removeAttribute('required');
-                    }
-                } else {
-                    if ($this==no_seven) {
-                        no_family.setAttribute('required','required');
-                    } else if ($this==no_family) {
-                        no_seven.setAttribute('required','required');
-                    }
-                }
-            }
-        </script>
+        <input type="text" class="form-control" id="no_seven" pattern="[0-9A-Z]{8}" onInput="either_required(this)" required="required">
+        <div class="invalid-feedback">大文字英数字 8文字で入力してください。</div>
     </div>
+	<div class="mb-3">
+		<label for="no_family" class="form-label">ファミリーマート・ローソン</label>
+        <input type="text" class="form-control" id="no_family" pattern="[0-9A-Z]{10}" onInput="either_required(this)"  required="required">
+        <div class="invalid-feedback">大文字英数字 10文字で入力してください。</div>
+	</div>
+	<script>
+		const no_seven = document.getElementById('no_seven');
+		const no_family = document.getElementById('no_family');
+		function either_required($this) {
+			if ($this.value) {
+				if ($this==no_seven) {
+					no_family.removeAttribute('required');
+				} else if ($this==no_family) {
+					no_seven.removeAttribute('required');
+				}
+			} else {
+				if ($this==no_seven) {
+					no_family.setAttribute('required','required');
+				} else if ($this==no_family) {
+					no_seven.setAttribute('required','required');
+				}
+			}
+		}
+	</script>
     <button type="submit" class="btn btn-primary">登録</button>
 </form>
 <script>
