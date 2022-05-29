@@ -1,8 +1,8 @@
-# ネップリ共有サイト(β)
-[ネップリ共有サイト(β)](https://share-neppuri.herokuapp.com/ "ネップリ共有サイト(β)")の開発リポジトリです。
+# ネプリス
+ネップリ共有サイト「[ネプリス](https://nepris.herokuapp.com/ "ネップリ共有サイト(β)")」の開発リポジトリです。
 
 詳細は以下をご覧ください。
-- [About](https://share-neppuri.herokuapp.com/about/ "About｜ネップリ共有サイト(β)")
+- [About](https://nepris.herokuapp.com/about/ "About｜ネップリ共有サイト(β)")
 - [Qiita](https://qiita.com/glyzinieh/private/16111916b39ca5048736 "初心者が「ネップリ共有サイト」をつくった話（兼メモ） - Qiita")
 
 ## 環境変数について
