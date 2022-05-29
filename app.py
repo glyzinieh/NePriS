@@ -77,7 +77,7 @@ def privacy():
     return render_template('privacy-policy.html')
 @ext.register_generator
 def privacy():
-    yield 'privacy-policy', {}
+    yield 'privacy', {}
 
 if __name__ == "__main__":
     app.run(port=8000,debug=True)
