@@ -17,14 +17,14 @@
         <!-- cssを読み込み -->
         <link rel="stylesheet" href="/static/css/layout.css">
         <!-- titleを設定 -->
-        <title>{% block title %}{% endblock %}｜ネップリ共有サイト(β)</title>
+        <title>{% block title %}{% endblock %}｜NePriS(β)</title>
         <!-- faviconを指定 -->
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: #defce4;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url_for('index') }}">ネップリ共有サイト(β)</a>
+                <a class="navbar-brand" href="{{ url_for('index') }}">ネプリス(β)</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_toggler" aria-controls="navbar_toggler" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
