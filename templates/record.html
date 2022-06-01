@@ -84,18 +84,19 @@
     </div>
     <div class="mb-1">
         <label for="no_seven" class="form-label">セブンイレブン</label>
-        <input type="text" class="form-control" id="no_seven" pattern="[0-9A-Z]{8}" onInput="either_required(this)" required="required">
+        <input type="text" class="form-control" id="no_seven" pattern="[0-9A-Z]{8}" onInput="no_check(this);" required="required">
         <div class="invalid-feedback">大文字英数字 8文字で入力してください。</div>
     </div>
 	<div class="mb-3">
 		<label for="no_family" class="form-label">ファミリーマート・ローソン</label>
-        <input type="text" class="form-control" id="no_family" pattern="[0-9A-Z]{10}" onInput="either_required(this)"  required="required">
+        <input type="text" class="form-control" id="no_family" pattern="[0-9A-Z]{10}" onInput="no_check(this);"  required="required">
         <div class="invalid-feedback">大文字英数字 10文字で入力してください。</div>
 	</div>
 	<script>
 		const no_seven = document.getElementById('no_seven');
 		const no_family = document.getElementById('no_family');
-		function either_required($this) {
+		function no_check($this) {
+            $this.value = $this.value.toUpperCase();
 			if ($this.value) {
 				if ($this==no_seven) {
 					no_family.removeAttribute('required');
