@@ -7,22 +7,22 @@
 <form class="needs-validation" action="/record/thanks/" method="post" enctype="multipart/form-data" novalidate>
     <div class="mb-3">
         <label for="email" class="form-label">メールアドレス<span class="badge bg-danger">必須</span></label>
-        <input type="email" class="form-control" id="email" required>
+        <input type="email" class="form-control"id="email" name=email required>
         <div class="invalid-feedback">有効なメールアドレスを入力してください。</div>
     </div>
     <div class="mb-3">
         <label for="name" class="form-label">ニックネーム<span class="badge bg-danger">必須</span></label>
-        <input type="text" class="form-control" id="name" required>
+        <input type="text" class="form-control" id="name" name=name required>
         <div class="invalid-feedback">必須項目です。</div>
     </div>
     <div class="mb-3">
         <label for="title" class="form-label">タイトル<span class="badge bg-danger">必須</span></label>
-        <input type="text" class="form-control" id="title" required>
+        <input type="text" class="form-control" id="title" name=title required>
         <div class="invalid-feedback">必須項目です。</div>
     </div>
     <div class="mb-2">
         <label for="image" class="form-label">画像<span class="badge bg-danger">必須</span></label>
-        <input type="file" class="form-control" id="image"  onChange="imgPreView(event)" required>
+        <input type="file" class="form-control" id="image" onChange="imgPreView(event);" name=image accept="image/png, image/jpeg" required>
         <div class="invalid-feedback">必須項目です。</div>
     </div>
 	<div class="mb-3">
@@ -54,13 +54,13 @@
 	</div>
     <div class="mb-3">
         <label for="date" class="form-label">有効期限<span class="badge bg-danger">必須</span></label>
-        <input type="date" class="form-control" id="date" required>
+        <input type="date" class="form-control" id="date" name=date required>
         <div class="invalid-feedback">必須項目です。</div>
     </div>
     <div class="mb-3">
         <label for="note" class="form-label">備考<span class="badge bg-info text-dark">任意</span></label>
         <div id="note-help" class="form-text">作品の紹介や用紙サイズなどをご入力ください。マークダウンが利用できます。</div>
-        <textarea class="form-control" id="note" rows="10" aria-describedby="note-help"></textarea>
+        <textarea class="form-control" id="note" rows="10" aria-describedby="note-help" name=note></textarea>
         <!-- SimpleMDEの読み込み -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
         <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
@@ -84,12 +84,12 @@
     </div>
     <div class="mb-1">
         <label for="no_seven" class="form-label">セブンイレブン</label>
-        <input type="text" class="form-control" id="no_seven" pattern="[0-9A-Z]{8}" onInput="no_check(this);" required="required">
+        <input type="text" class="form-control" id="no_seven" name=no_seven pattern="[0-9A-Z]{8}" onInput="no_check(this);" required="required">
         <div class="invalid-feedback">大文字英数字 8文字で入力してください。</div>
     </div>
 	<div class="mb-3">
 		<label for="no_family" class="form-label">ファミリーマート・ローソン</label>
-        <input type="text" class="form-control" id="no_family" pattern="[0-9A-Z]{10}" onInput="no_check(this);"  required="required">
+        <input type="text" class="form-control" id="no_family" name=no_family pattern="[0-9A-Z]{10}" onInput="no_check(this);"  required="required">
         <div class="invalid-feedback">大文字英数字 10文字で入力してください。</div>
 	</div>
 	<script>
