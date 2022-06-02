@@ -1,5 +1,6 @@
 import os
 from os.path import dirname, join
+from unittest import result
 
 import client
 import gspread
@@ -143,8 +144,13 @@ def work(id):
         if i[0] == id:
             result = dict(zip(heaer,i))
             break
-    with open(join(dirname(__file__),'tmp',result['image']),'wb') as f:
-        f.write(file_send.read(result['image']).content)
+
+    tmp_path = join(dirname(__file__),'tmp')
+    file_name = result['image']
+    if not os.path.exists(tmp_path):
+        os.mkdir(tmp_path)
+    with open(join(tmp_path,file_name),'wb') as f:
+        f.write(file_send.read(file_name).content)
 
     return render_template('work.html',result=result)
 
