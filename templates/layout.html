@@ -15,16 +15,18 @@
         <meta name="google-site-verification" content="byLrHZ5BNJnMVg_DpxNwJQ6mgTutlQjrwErNgzCA6Dc" />
 
         <!-- cssを読み込み -->
-        <link rel="stylesheet" href="/static/css/layout.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
         <!-- titleを設定 -->
         <title>{% block title %}{% endblock %}｜NePriS(β)</title>
         <!-- faviconを指定 -->
-        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: #defce4;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url_for('index') }}">ネプリス(β)</a>
+                <a class="navbar-brand" href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='img/logo1.png') }}" alt="NePriS" width="auto" height="24">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_toggler" aria-controls="navbar_toggler" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>

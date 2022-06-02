@@ -7,7 +7,7 @@
 {% if status == 'Success' %}
     <p>ご登録ありがとうございます。</p>
     <p>
-        作品ID:{{ id }}<br>
+        作品ID：{{ id }}<br>
         作品は<a href="{{ url_for('work',id=id) }}">こちら</a>から確認いただけます。
     </p>
 {% elif status == 'Failed' %}
