@@ -3,5 +3,21 @@
 {% block title %}Work{% endblock %}
 
 {% block content %}
-{{ result }}
+<div class="row">
+    <div class="col-md-5">
+        <img src="{{ url_for('send_temp',path=result['image']) }}" width="100%" height="auto">
+    </div>
+    <div class="col-md-6 col-md-offset-1">
+        <h2>{{ result['title'] }}</h2>
+        {{ result['name'] }}<br>
+        {{ result['date'] }}
+        <div id="note"></div>
+        {{ result['no_seven'] }}<br>
+        {{ result['no_family'] }}
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <script>
+            document.getElementById('note').innerHTML = marked.parse(`{{ result['note'] }}`);
+        </script>
+    </div>
+</div>
 {% endblock %}
