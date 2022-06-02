@@ -154,9 +154,9 @@ def work(id):
 
     return render_template('work.html',result=result)
 
-@app.get('/temp/<path:path>/')
+@app.get('/tmp/<path:path>/')
 def send_temp(path):
-    return send_from_directory('temp', path)
+    return send_from_directory(join(dirname(__file__),'tmp'), path)
 
 if __name__ == "__main__":
     app.run(port=8000,debug=True)
