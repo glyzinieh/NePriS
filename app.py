@@ -4,7 +4,7 @@ from os.path import dirname, join
 import client
 import gspread
 from dotenv import load_dotenv
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 from flask_sitemap import Sitemap
 from google.oauth2.service_account import Credentials
 from werkzeug.utils import secure_filename
@@ -97,8 +97,8 @@ def record_thanks():
             'record_thanks.html',
             status='登録できませんでした。PNG,JPEGのみ送信できます。'
             )
-
-    id = str(len(ws.col_values(1))).zfill(5)
+ 
+    id = str(int(ws.col_values(1)[-1])+1).zfill(5)
     filename = id + fileext
     answer = request.form
     save_data = [
@@ -126,6 +126,10 @@ def privacy():
 @ext.register_generator
 def privacy():
     yield 'privacy', {}
+
+@app.get('/temp/<path:path>/')
+def send_temp(path):
+    return send_from_directory('temp', path)
 
 if __name__ == "__main__":
     app.run(port=8000,debug=True)
