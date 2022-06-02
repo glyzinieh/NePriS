@@ -136,10 +136,17 @@ def privacy():
 
 @app.get('/work/<string:id>/')
 def work(id):
-	datas = ws.get_all_records()
-	data = list(filter(lambda item : item['id'] == int(id), datas))[0]
-	print(data)
-	return render_template('work.html')
+    db = ws.get_all_values()
+    heaer = db[0]
+    data = db[1:]
+    for i in data:
+        if i[0] == id:
+            result = dict(zip(heaer,i))
+            break
+    with open(join(dirname(__file__),'tmp',result['image']),'wb') as f:
+        f.write(file_send.read(result['image']).content)
+
+    return render_template('work.html',result=result)
 
 @app.get('/temp/<path:path>/')
 def send_temp(path):
