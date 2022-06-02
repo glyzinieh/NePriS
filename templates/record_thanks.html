@@ -4,9 +4,19 @@
 
 {% block content %}
 <h2>Record</h2>
-<p>{{ status }}</p>]
-<p>
-    <a href="{{ url_for('index') }}">Homeに戻る</a><br>
-    <a href="{{ url_for('record') }}">登録ページに戻る</a>
-</p>
+{% if status == 'Success' %}
+    <p>ご登録ありがとうございます。</p>
+    <p>
+        作品ID:{{ id }}<br>
+        作品は<a href="{{ url_for('work',id=id) }}">こちら</a>から確認いただけます。
+    </p>
+{% elif status == 'Failed' %}
+    <p>
+        登録できませんでした。<br>
+        {{ msg }}
+    </p>
+    <p>
+        <a href="{{ url_for('record') }}">こちら</a>から登録ページに戻ります。
+    </p>
+{% endif %}
 {% endblock %}

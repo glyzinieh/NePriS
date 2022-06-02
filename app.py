@@ -47,6 +47,9 @@ def allowed_file(filename):
 
 @app.get('/')
 def index():
+    data = ws.get_all_records()[-50:]
+    type(data)
+
     return render_template('index.html')
 @ext.register_generator
 def index():
@@ -79,7 +82,8 @@ def record_thanks():
     if 'image' not in request.files:
         return render_template(
             'record_thanks.html',
-            status='登録できませんでした。ファイルを送信してください。'
+            status='Failed',
+            msg='ファイルを送信してください。'
             )
     file = request.files['image']
 
@@ -87,7 +91,8 @@ def record_thanks():
     if file.filename == '':
         return render_template(
             'record_thanks.html',
-            status='登録できませんでした。ファイルの名前を指定してください。'
+            status='Failed',
+            msg='ファイルの名前を指定してください。'
             )
 
     if file and allowed_file(file.filename):
@@ -95,7 +100,8 @@ def record_thanks():
     else:
         return render_template(
             'record_thanks.html',
-            status='登録できませんでした。PNG,JPEGのみ送信できます。'
+            status='Failed',
+            msg='PNG,JPEGのみ送信できます。'
             )
  
     id = str(int(ws.col_values(1)[-1])+1).zfill(5)
@@ -117,7 +123,8 @@ def record_thanks():
     file_send.write(filename,file)
     return render_template(
             'record_thanks.html',
-            status='ご登録ありがとうございます。'
+            status='Success',
+            id=id
             )
 
 @app.get('/privacy-policy/')
@@ -126,6 +133,13 @@ def privacy():
 @ext.register_generator
 def privacy():
     yield 'privacy', {}
+
+@app.get('/work/<string:id>/')
+def work(id):
+	datas = ws.get_all_records()
+	data = list(filter(lambda item : item['id'] == int(id), datas))[0]
+	print(data)
+	return render_template('work.html')
 
 @app.get('/temp/<path:path>/')
 def send_temp(path):
