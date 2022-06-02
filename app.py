@@ -98,19 +98,19 @@ def record_thanks():
             status='登録できませんでした。PNG,JPEGのみ送信できます。'
             )
 
-    id = str(ws.row_count + 1).zfill(5)
+    id = str(len(ws.col_values(1))).zfill(5)
     filename = id + fileext
     answer = request.form
     save_data = [
         id,
-        answer["email"],
-        answer["name"],
-        answer["title"],
+        answer['email'],
+        answer['name'],
+        answer['title'],
         filename,
-        answer["date"],
-        answer["note"],
-        answer["no_seven"],
-        answer["no_family"]
+        answer['date'],
+        answer.get('note',''),
+        answer.get('no_seven',''),
+        answer.get('no_family','')
     ]
     
     ws.append_row(save_data)
