@@ -43,8 +43,8 @@ app = Flask(__name__)
 ext = Sitemap(app=app)
 
 def allowed_image(file:FileStorage):
-    return '.' in file.name and \
-           re.match(r'image/.+',file.mimetype)
+    return '.' in file.filename and \
+           re.match('^image/.+',file.mimetype)
 
 def gspread_get_all_dict(ws:gspread.Worksheet) -> list[dict] :
     result = []
@@ -113,7 +113,7 @@ def record_thanks():
             status='Failed',
             msg='画像のみ送信できます。'
             )
- 
+
     id = str(int(ws.col_values(1)[-1])+1).zfill(5)
     filename = id + fileext
     answer = request.form
