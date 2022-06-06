@@ -1,6 +1,6 @@
 import os
+import re
 from os.path import dirname, join
-from unittest import result
 
 import client
 import gspread
@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, request, send_from_directory
 from flask_sitemap import Sitemap
 from google.oauth2.service_account import Credentials
+from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 
 # ローカル環境で環境編集を取得
@@ -41,15 +42,23 @@ file_send = client.file_send(os.environ['DB_URL'],os.environ['DB_TOKEN'])
 app = Flask(__name__)
 ext = Sitemap(app=app)
 
-ALLOWED_EXTENSIONS = {'png','jfif','pjpeg','jpeg','pjp','jpg'}
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+def allowed_image(file:FileStorage):
+    return '.' in file.name and \
+           re.match(r'image/.+',file.mimetype)
+
+def gspread_get_all_dict(ws:gspread.Worksheet) -> list[dict] :
+    result = []
+    data = ws.get_all_values()
+    header = data[0]
+    body = data[1:]
+    for i in body:
+        result.append(dict(zip(header,i)))
+    return result
 
 @app.get('/')
 def index():
-    data = ws.get_all_records()[-50:]
-    type(data)
+    db = gspread_get_all_dict(ws)[-50:]
+    type(db)
 
     return render_template('index.html')
 @ext.register_generator
@@ -96,13 +105,13 @@ def record_thanks():
             msg='ファイルの名前を指定してください。'
             )
 
-    if file and allowed_file(file.filename):
+    if file and allowed_image(file):
         fileext = os.path.splitext(secure_filename(file.filename))[1]
     else:
         return render_template(
             'record_thanks.html',
             status='Failed',
-            msg='PNG,JPEGのみ送信できます。'
+            msg='画像のみ送信できます。'
             )
  
     id = str(int(ws.col_values(1)[-1])+1).zfill(5)
@@ -137,22 +146,17 @@ def privacy():
 
 @app.get('/work/<string:id>/')
 def work(id):
-    db = ws.get_all_values()
-    heaer = db[0]
-    data = db[1:]
-    for i in data:
-        if i[0] == id:
-            result = dict(zip(heaer,i))
-            break
+    db = gspread_get_all_dict(ws)
+    detail = next(i for i in db if i['id'] == id)
 
     tmp_path = join(dirname(__file__),'tmp')
-    file_name = result['image']
+    file_name = detail['image']
     if not os.path.exists(tmp_path):
         os.mkdir(tmp_path)
     with open(join(tmp_path,file_name),'wb') as f:
         f.write(file_send.read(file_name).content)
 
-    return render_template('work.html',result=result)
+    return render_template('work.html',result=detail)
 
 @app.get('/tmp/<path:path>/')
 def send_temp(path):
