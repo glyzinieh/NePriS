@@ -115,13 +115,13 @@ def record_thanks():
             msg='画像のみ送信できます。'
             )
 
-    img_file = Image.open(BytesIO(file)).convert('RGB')
+    img_file = Image.open(file.stream).convert('RGB')
     img_save = BytesIO()
     img_file.save(img_save,'webp')
 
     id = str(int(ws.col_values(1)[-1])+1).zfill(5)
     filename = id + '.webp'
-    
+
     answer = request.form
     save_data = [
         id,
@@ -136,7 +136,7 @@ def record_thanks():
     ]
     ws.append_row(save_data)
 
-    file_send.write(filename,img_save)
+    file_send.write(filename,img_save.getvalue())
     return render_template(
             'record_thanks.html',
             status='Success',

@@ -13,7 +13,13 @@
             <i class="bi bi-person-fill"></i> {{ result['name'] }}<br>
             <i class="bi bi-calendar-range"></i> {{ result['date'] }}
         </p>
-        <div id="note" class="bg-light rounded border border-1 my-3"></div>
+        {% if result['note'] != '' %}
+            <div id="note" class="bg-light rounded border border-1 my-3"></div>
+            <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+            <script>
+                document.getElementById('note').innerHTML = marked.parse(`{{ result['note'] }}`);
+            </script>
+        {% endif %}
         <dl class="row">
             <dt class="col-md-4"><span style="color: orange;">セブンイレブン</span></dt>
             <dd class="col-md-8 align-middle">{{ result['no_seven'] }}</dd>
@@ -23,10 +29,6 @@
             </dt>
             <dd class="col-md-8 align-middle">{{ result['no_family'] }}</dd>
         </dl>
-        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-        <script>
-            document.getElementById('note').innerHTML = marked.parse(`{{ result['note'] }}`);
-        </script>
     </div>
 </div>
 {% endblock %}
