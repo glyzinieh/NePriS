@@ -23,8 +23,8 @@
     </div>
     <div class="mb-2">
         <label for="image" class="form-label">画像<span class="badge bg-danger">必須</span></label>
-        <input type="file" class="form-control" id="image" onChange="imgPreView(event);" name=image accept="image/*" required>
-        <div class="invalid-feedback">必須項目です。</div>
+        <input type="file" class="form-control" id="image" onChange="imgPreView(event); img_check();" name=image accept="image/*" required>
+        <div class="invalid-feedback">500KB以下の画像を選択してください。</div>
     </div>
 	<div class="mb-3">
 		<div id="preview"></div>
@@ -93,48 +93,8 @@
         <input type="text" class="form-control" id="no_family" name=no_family pattern="[0-9A-Z]{10}" onInput="no_check(this);"  required="required">
         <div class="invalid-feedback">大文字英数字 10文字で入力してください。</div>
 	</div>
-	<script>
-		const no_seven = document.getElementById('no_seven');
-		const no_family = document.getElementById('no_family');
-		function no_check($this) {
-            $this.value = $this.value.toUpperCase();
-			if ($this.value) {
-				if ($this==no_seven) {
-					no_family.removeAttribute('required');
-				} else if ($this==no_family) {
-					no_seven.removeAttribute('required');
-				}
-			} else {
-				if ($this==no_seven) {
-					no_family.setAttribute('required','required');
-				} else if ($this==no_family) {
-					no_seven.setAttribute('required','required');
-				}
-			}
-		}
-	</script>
     <p>登録の前に<a href="{{ url_for('privacy') }}">プライバシーポリシー</a>をご確認ください。</p>
     <button type="submit" class="btn btn-primary">登録</button>
 </form>
-<script>
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-	'use strict'
-
-	// Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.querySelectorAll('.needs-validation')
-
-    // Loop over them and prevent submission
-    Array.prototype.slice.call(forms).forEach(function (form) {
-		form.addEventListener('submit', function (event) {
-			if (!form.checkValidity()) {
-				event.preventDefault()
-				event.stopPropagation()
-			}
-
-		form.classList.add('was-validated')
-		}, false)
-	})
-})()
-</script>
+<script src="{{ url_for('static', filename='js/validation.js') }}"></script>
 {% endblock %}
