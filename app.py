@@ -1,5 +1,6 @@
 import os
 import re
+from io import BytesIO
 from os.path import dirname, join
 
 import client
@@ -8,6 +9,7 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, request, send_from_directory
 from flask_sitemap import Sitemap
 from google.oauth2.service_account import Credentials
+from PIL import Image
 from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 
@@ -40,11 +42,12 @@ ws = wb.worksheet("Main")
 file_send = client.file_send(os.environ['DB_URL'],os.environ['DB_TOKEN'])
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
 ext = Sitemap(app=app)
 
 def allowed_image(file:FileStorage):
     return '.' in file.filename and \
-           re.match('^image/.+',file.mimetype)
+           re.match('image/.+',file.mimetype)
 
 def gspread_get_all_dict(ws:gspread.Worksheet) -> list[dict] :
     result = []
@@ -105,17 +108,20 @@ def record_thanks():
             msg='ファイルの名前を指定してください。'
             )
 
-    if file and allowed_image(file):
-        fileext = os.path.splitext(secure_filename(file.filename))[1]
-    else:
+    if not (file and allowed_image(file)):
         return render_template(
             'record_thanks.html',
             status='Failed',
             msg='画像のみ送信できます。'
             )
 
+    img_file = Image.open(BytesIO(file)).convert('RGB')
+    img_save = BytesIO()
+    img_file.save(img_save,'webp')
+
     id = str(int(ws.col_values(1)[-1])+1).zfill(5)
-    filename = id + fileext
+    filename = id + '.webp'
+    
     answer = request.form
     save_data = [
         id,
@@ -128,9 +134,9 @@ def record_thanks():
         answer.get('no_seven',''),
         answer.get('no_family','')
     ]
-    
     ws.append_row(save_data)
-    file_send.write(filename,file)
+
+    file_send.write(filename,img_save)
     return render_template(
             'record_thanks.html',
             status='Success',
