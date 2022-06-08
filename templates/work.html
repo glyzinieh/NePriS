@@ -4,8 +4,8 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-md-5">
-        <img src="{{ url_for('get_img',filename=result['image']) }}" class="img-fluid" width="100%" height="auto">
+    <div class="col-md-6">
+        <img src="{{ url_for('get_img',filename=result['image']) }}" class="img-fluid rounded border border-1">
     </div>
     <div class="col-md-6 col-md-offset-1">
         <h2>{{ result['title'] }}</h2>
@@ -31,4 +31,10 @@
         </dl>
     </div>
 </div>
+<style>
+    img {
+        aspect-ratio: 4 / 3;
+        object-fit: contain;
+    }
+</style>
 {% endblock %}
