@@ -157,6 +157,9 @@ def record_thanks():
         id=id
     )
 
+@app.get('/howto-neppuri/')
+def howto():
+    return render_template('howto-neppuri.html')
 
 @app.get('/privacy-policy/')
 def privacy():

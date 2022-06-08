@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block page_title %}ネップリの利用方法{% endblock %}
+{% block title %}ネップリの利用方法{% endblock %}
+
+
+{% block head %}
+<meta name="description" content="ネップリの利用方法">
+<meta property="og:url" content="{{ url_for('howto', _external=True) }}" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="ネップリの利用方法" />
+<meta property="og:image" content="{{ url_for('static', filename='img/logo2.png', _external=True) }}" />
+<meta name="twitter:description" content="ネップリの利用方法">
+{% endblock %}
+
+{% block content %}
+<h2>ネップリの利用方法</h2>
+
+<h3>セブンイレブン</h3>
+<h4>印刷</h4>
+<p>
+    <a href="https://7net.omni7.jp/general/sp/00000netprint" target="_blank" rel="noopener noreferrer">ネットプリントのご利用方法</a>をご覧ください。
+<h4>登録</h4>
+<p>
+    <a href="https://www.printing.ne.jp/" target="_blank" rel="noopener noreferrer">登録サイト</a>で予約番号を発行して、NePriSに<a href="{{ url_for('record') }}">登録</a>してください。
+</p>
+
+<h3>ファミリーマート・ローソン</h3>
+<h4>印刷</h4>
+<p>
+    <a href="https://networkprint.ne.jp/sharp_netprint/ja/howto_lphoto_convini.aspx" target="_blank" rel="noopener noreferrer">ご利用方法</a>をご覧ください。
+</p>
+<h4>登録</h4>
+<p>
+    <a href="https://networkprint.ne.jp/sharp_netprint/ja/top.aspx" target="_blank" rel="noopener noreferrer">登録サイト</a>で予約番号を発行して、NePriSに<a href="{{ url_for('record') }}">登録</a>してください。
+</p>
+{% endblock %}
