@@ -10,6 +10,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:description" content="{{ result['note'] }}" />
 <meta property="og:image" content="{{ url_for('get_img',filename=result['image']) }}" />
+<meta name="twitter:description" content="{{ result['note'] }}">
 {% endblock %}
 
 {% block content %}
