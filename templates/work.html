@@ -5,7 +5,7 @@
 {% block content %}
 <div class="row">
     <div class="col-md-5">
-        <img src="{{ url_for('get_img',filename=result['image']) }}" width="100%" height="auto">
+        <img src="{{ url_for('get_img',filename=result['image']) }}" class="img-fluid" width="100%" height="auto">
     </div>
     <div class="col-md-6 col-md-offset-1">
         <h2>{{ result['title'] }}</h2>
