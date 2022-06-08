@@ -5,7 +5,7 @@
 {% block content %}
 <h2 class="text-center"><a class="btn btn-primary" href="/record/" role="button">ネップリの登録はこちらから</a></h2>
 
-<div class="row row-cols-4 g-3">
+<div class="row row-cols-md-4 g-3">
     {% for i in data %}
     <div class="col">
         <a href="{{ url_for('work',id=i['id']) }}" class="card h-100 text-decoration-none">
