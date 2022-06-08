@@ -1,63 +1,82 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <!-- UTF-8に指定 -->
-        <meta charset="utf-8">
-        <!-- viewportを設定 -->
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!-- Bootstrapを読み込み -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-        <!-- フォントを読み込み -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
-        <!-- Google Search Console -->
-        <meta name="google-site-verification" content="byLrHZ5BNJnMVg_DpxNwJQ6mgTutlQjrwErNgzCA6Dc" />
 
-        <!-- cssを読み込み -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
-        <!-- titleを設定 -->
-        <title>{% block title %}{% endblock %}｜NePriS(β)</title>
-        <!-- faviconを指定 -->
-        <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-md navbar-light sticky-top" style="background-color: #defce4;">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url_for('index') }}">
-                    <img src="{{ url_for('static', filename='img/logo1.png') }}" alt="NePriS" width="auto" height="24">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_toggler" aria-controls="navbar_toggler" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbar_toggler">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" id="link_home" href="{{ url_for('index') }}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" id="link_about" href="{{ url_for('about') }}">About</a></li>
-                        <li class="nav-item"><a class="nav-link" id="link_contact" href="{{ url_for('contact') }}">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link" id="link_privacy" href="{{ url_for('privacy') }}">Privacy-Policy</a></li>
-                    </ul>
-                    <script type="text/javascript">
-                        const page_name = '{% block page_name %}{% endblock %}'
-                        if (page_name) {
-                            const element = document.getElementById(`link_${page_name}`);
-                            element.classList.add('active');
-                            element.setAttribute('aria-current','page');
-                        }
-                    </script>
-                </div>
-            </div>
-        </nav>
+<head>
+	<!-- UTF-8に指定 -->
+	<meta charset="utf-8">
+	<!-- viewportを設定 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- Bootstrapを読み込み -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+	<!-- フォントを読み込み -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+	<!-- Google Search Console -->
+	<meta name="google-site-verification" content="byLrHZ5BNJnMVg_DpxNwJQ6mgTutlQjrwErNgzCA6Dc" />
 
-        <div class="container pt-3">
-            <main>
-                {% block content %}
-                {% endblock %}
-            </main>
-        </div>
+	<!-- cssを読み込み -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+	<!-- titleを設定 -->
+	<title>{% block title %}{% endblock %}｜NePriS(β)</title>
+	<!-- faviconを指定 -->
+	<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
 
-        <!-- Bootstrapを読み込み -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    </body>
+	<head prefix="og: http://ogp.me/ns#"></head>
+	<meta property="og:title" content="{% block title %}{% endblock %}" />
+	<meta property="og:site_name" content="NePriS（ネプリス）" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@NePr1S" />
+
+	{% block head %}
+	{% endblock %}
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-md navbar-light sticky-top" style="background-color: #defce4;">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="{{ url_for('index') }}">
+				<img src="{{ url_for('static', filename='img/logo1.png') }}" alt="NePriS" width="auto" height="24">
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_toggler"
+				aria-controls="navbar_toggler" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbar_toggler">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" id="link_home" href="{{ url_for('index') }}">Home</a></li>
+					<li class="nav-item"><a class="nav-link" id="link_about" href="{{ url_for('about') }}">About</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" id="link_contact"
+							href="{{ url_for('contact') }}">Contact</a></li>
+					<li class="nav-item"><a class="nav-link" id="link_privacy"
+							href="{{ url_for('privacy') }}">Privacy-Policy</a></li>
+				</ul>
+				<script type="text/javascript">
+					const page_name = '{% block page_name %}{% endblock %}'
+					if (page_name) {
+						const element = document.getElementById(`link_${page_name}`);
+						element.classList.add('active');
+						element.setAttribute('aria-current', 'page');
+					}
+				</script>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container pt-3">
+		<main>
+			{% block content %}
+			{% endblock %}
+		</main>
+	</div>
+
+	<!-- Bootstrapを読み込み -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+</body>
+
 </html>

@@ -2,6 +2,16 @@
 {% block page_name %}contact{% endblock %}
 {% block title %}Contact{% endblock %}
 
+{% block head %}
+<meta name="description" content="
+NePriS（ネプリス）へのご意見・ご要望などはこちらから
+">
+<meta property="og:url" content="{{ url_for('contact', _external=True) }}" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="NePriS（ネプリス）へのご意見・ご要望などはこちらから" />
+<meta property="og:image" content="{{ url_for('static', filename='img/logo2.png', _external=True) }}" />
+{% endblock %}
+
 {% block content %}
 <h2>Contact</h2>
 <p>ご意見・ご要望などはこちらからお寄せください。</p>

@@ -2,6 +2,16 @@
 {% block page_name %}privacy{% endblock %}
 {% block title %}プライバシーポリシー{% endblock %}
 
+{% block head %}
+<meta name="description" content="
+NePriS（ネプリス）はお客様の個人情報を大切にしています。
+">
+<meta property="og:url" content="{{ url_for('privacy', _external=True) }}" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="NePriS（ネプリス）はお客様の個人情報を大切にしています。" />
+<meta property="og:image" content="{{ url_for('static', filename='img/logo2.png', _external=True) }}" />
+{% endblock %}
+
 {% block content %}
 <h2>プライバシーポリシー</h2>
 
