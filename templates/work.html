@@ -1,6 +1,18 @@
 {% extends "layout.html" %}
 
+{% block page_title %}Work{% endblock %}
 {% block title %}Work{% endblock %}
+
+{% block head %}
+<meta name="description" content="
+{{ result['note'] }}
+">
+<meta property="og:url" content="{{ url_for('work', id=result['id'], _external=True) }}" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="{{ result['note'] }}" />
+<meta property="og:image" content="{{ url_for('get_img',filename=result['image'], _external=True) }}" />
+<meta name="twitter:description" content="{{ result['note'] }}">
+{% endblock %}
 
 {% block content %}
 <div class="row">

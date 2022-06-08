@@ -1,6 +1,18 @@
 {% extends "layout.html" %}
 {% block page_name %}home{% endblock %}
+{% block page_title %}ネップリの共有ならネプリス{% endblock %}
 {% block title %}ネップリの共有ならネプリス{% endblock %}
+
+{% block head %}
+<meta name="description" content="
+ネップリの共有なら、NePriS（ネプリス）で！
+">
+<meta property="og:url" content="{{ url_for('index', _external=True) }}" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="ネップリの共有なら、NePriS（ネプリス）で！" />
+<meta property="og:image" content="{{ url_for('static', filename='img/logo2.png', _external=True) }}" />
+<meta name="twitter:description" content="ネップリの共有なら、NePriS（ネプリス）で！">
+{% endblock %}
 
 {% block content %}
 <h2 class="text-center"><a class="btn btn-primary" href="/record/" role="button">ネップリの登録はこちらから</a></h2>
