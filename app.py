@@ -65,7 +65,7 @@ def gspread_get_all_dict(ws: gspread.Worksheet) -> list[dict]:
 def index():
     data = gspread_get_all_dict(ws)[-50:]
     data.reverse()
-    return render_template('index.html',data=data)
+    return render_template('index.html', data=data)
 
 
 @ext.register_generator
@@ -157,9 +157,16 @@ def record_thanks():
         id=id
     )
 
+
 @app.get('/howto-neppuri/')
 def howto():
     return render_template('howto-neppuri.html')
+
+
+@ext.register_generator
+def howto():
+    yield 'howto', {}
+
 
 @app.get('/privacy-policy/')
 def privacy():
