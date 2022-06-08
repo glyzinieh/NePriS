@@ -11,7 +11,6 @@ from flask_sitemap import Sitemap
 from google.oauth2.service_account import Credentials
 from PIL import Image
 from werkzeug.datastructures import FileStorage
-from werkzeug.utils import secure_filename
 
 # ローカル環境で環境編集を取得
 dotenv_path = join(dirname(__file__), '.env')
@@ -64,10 +63,9 @@ def gspread_get_all_dict(ws: gspread.Worksheet) -> list[dict]:
 
 @app.get('/')
 def index():
-    db = gspread_get_all_dict(ws)[-50:]
-    type(db)
-
-    return render_template('index.html')
+    data = gspread_get_all_dict(ws)[-50:]
+    data.reverse()
+    return render_template('index.html',data=data)
 
 
 @ext.register_generator

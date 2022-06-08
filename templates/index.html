@@ -1,7 +1,38 @@
 {% extends "layout.html" %}
 {% block page_name %}home{% endblock %}
-{% block title %}ネップリの共有ならネプリス！{% endblock %}
+{% block title %}ネップリの共有ならネプリス{% endblock %}
 
 {% block content %}
 <h2 class="text-center"><a class="btn btn-primary" href="/record/" role="button">ネップリの登録はこちらから</a></h2>
+
+<div class="row row-cols-4 g-3">
+    {% for i in data %}
+    <div class="col">
+        <a href="{{ url_for('work',id=i['id']) }}" class="card h-100 text-decoration-none">
+            <img src="{{ url_for('get_img',filename=i['image']) }}" class="card-img-top">
+            <div class="card-body text-dark">
+                <h2 class="card-title">{{ i['title'] }}</h2>
+                <p class="card-text">
+                    <i class="bi bi-person-fill"></i> {{ i['name'] }}<br>
+                    <i class="bi bi-calendar-range"></i> {{ i['date'] }}
+                </p>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+<style>
+    .card-img-top {
+        aspect-ratio: 4 / 3;
+        object-fit: contain;
+    }
+
+    .card {
+        transition: transform 0.3s;
+    }
+
+    .card:hover {
+        transform: scale(1.04);
+    }
+</style>
 {% endblock %}
