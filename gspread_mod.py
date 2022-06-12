@@ -2,7 +2,7 @@ import gspread
 
 
 def get_all_dicts(self) -> list[dict]:
-    dicts_data = []
+    dicts_data = list()
     lists_data = self.get_all_values()
     header = lists_data[0]
     body = lists_data[1:]
