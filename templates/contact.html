@@ -1,6 +1,5 @@
 {% extends "layout.html" %}
 {% block page_name %}contact{% endblock %}
-{% block page_title %}Contact{% endblock %}
 {% block title %}Contact{% endblock %}
 
 {% block head %}
@@ -9,6 +8,7 @@ NePriS（ネプリス）へのご意見・ご要望などはこちらから
 ">
 <meta property="og:url" content="{{ url_for('contact', _external=True) }}" />
 <meta property="og:type" content="article" />
+<meta property="og:title" content="Contact" />
 <meta property="og:description" content="NePriS（ネプリス）へのご意見・ご要望などはこちらから" />
 <meta property="og:image" content="{{ url_for('static', filename='img/logo2.png', _external=True) }}" />
 <meta name="twitter:description" content="NePriS（ネプリス）へのご意見・ご要望などはこちらから">
