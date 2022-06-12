@@ -16,6 +16,15 @@
 	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
 	<!-- Google Search Console -->
 	<meta name="google-site-verification" content="byLrHZ5BNJnMVg_DpxNwJQ6mgTutlQjrwErNgzCA6Dc" />
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-2C47EVPEDH"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-2C47EVPEDH');
+	</script>
 
 	<!-- cssを読み込み -->
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
@@ -26,7 +35,7 @@
 
 	<meta name="theme-color" content="#defce4">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-	
+
 	<head prefix="og: http://ogp.me/ns#"></head>
 	<meta property="og:title" content="{% block title %}{% endblock %}" />
 	<meta property="og:site_name" content="NePriS（ネプリス）" />
