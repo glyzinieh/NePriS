@@ -12,8 +12,6 @@ from google.oauth2.service_account import Credentials
 from PIL import Image
 from werkzeug.datastructures import FileStorage
 
-import gspread_Worksheet_mod
-
 # ローカル環境で環境編集を取得
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
@@ -53,9 +51,19 @@ def allowed_image(file: FileStorage):
            re.match('image/.+', file.mimetype)
 
 
+def gspread_get_all_dict(ws: gspread.Worksheet) -> list[dict]:
+    result = []
+    data = ws.get_all_values()
+    header = data[0]
+    body = data[1:]
+    for i in body:
+        result.append(dict(zip(header, i)))
+    return result
+
+
 @app.get('/')
 def index():
-    data = ws.get_all_dicts()[-50:]
+    data = gspread_get_all_dict(ws)[-50:]
     data.reverse()
     return render_template('index.html', data=data)
 
@@ -172,7 +180,7 @@ def privacy():
 
 @app.get('/work/<string:id>/')
 def work(id):
-    db = ws.get_all_dicts()
+    db = gspread_get_all_dict(ws)
     detail = next(i for i in db if i['id'] == id)
     return render_template('work.html', result=detail)
 
