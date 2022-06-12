@@ -29,7 +29,7 @@
 	<!-- cssを読み込み -->
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
 	<!-- titleを設定 -->
-	<title>{% block page_title %}{% endblock %}｜NePriS(β)</title>
+	<title>{% block title %}{% endblock %}｜NePriS(β)</title>
 	<!-- faviconを指定 -->
 	<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
 
@@ -37,7 +37,6 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 	<head prefix="og: http://ogp.me/ns#"></head>
-	<meta property="og:title" content="{% block title %}{% endblock %}" />
 	<meta property="og:site_name" content="NePriS（ネプリス）" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="@NePr1S" />

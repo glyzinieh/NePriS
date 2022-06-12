@@ -1,6 +1,5 @@
 {% extends "layout.html" %}
 {% block page_name %}about{% endblock %}
-{% block page_title %}About{% endblock %}
 {% block title %}About{% endblock %}
 
 {% block head %}
@@ -9,6 +8,7 @@
 ">
 <meta property="og:url" content="{{ url_for('about', _external=True) }}" />
 <meta property="og:type" content="article" />
+<meta property="og:title" content="About" />
 <meta property="og:description" content="ネップリの共有なら、NePriS（ネプリス）で！" />
 <meta property="og:image" content="{{ url_for('static', filename='img/logo2.png', _external=True) }}" />
 <meta name="twitter:description" content="ネップリの共有なら、NePriS（ネプリス）で！">

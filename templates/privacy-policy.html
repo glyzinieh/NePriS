@@ -1,6 +1,5 @@
 {% extends "layout.html" %}
 {% block page_name %}privacy{% endblock %}
-{% block page_title %}プライバシーポリシー{% endblock %}
 {% block title %}プライバシーポリシー{% endblock %}
 
 
@@ -10,6 +9,7 @@ NePriS（ネプリス）はお客様の個人情報を大切にしています�
 ">
 <meta property="og:url" content="{{ url_for('privacy', _external=True) }}" />
 <meta property="og:type" content="article" />
+<meta property="og:title" content="プライバシーポリシー" />
 <meta property="og:description" content="NePriS（ネプリス）はお客様の個人情報を大切にしています。" />
 <meta property="og:image" content="{{ url_for('static', filename='img/logo2.png', _external=True) }}" />
 <meta name="twitter:description" content="NePriS（ネプリス）はお客様の個人情報を大切にしています。">

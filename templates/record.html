@@ -1,6 +1,5 @@
 {% extends "layout.html" %}
 
-{% block page_title %}Record{% endblock %}
 {% block title %}Record{% endblock %}
 
 {% block head %}
@@ -9,6 +8,7 @@
 ">
 <meta property="og:url" content="{{ url_for('record', _external=True) }}" />
 <meta property="og:type" content="article" />
+<meta property="og:title" content="Record" />
 <meta property="og:description" content="ネップリの登録はこちらから" />
 <meta property="og:image" content="{{ url_for('static', filename='img/logo2.png', _external=True) }}" />
 <meta name="twitter:description" content="ネップリの登録はこちらから">
