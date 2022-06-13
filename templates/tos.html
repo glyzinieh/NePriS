@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block page_name %}tos{% endblock %}
+{% block title %}利用規約{% endblock %}
+
+
+{% block head %}
+<meta name="description" content="
+NePriS（ネプリス）はお客様の個人情報を大切にしています。
+">
+<meta property="og:url" content="{{ url_for('tos', _external=True) }}" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="利用規約" />
+<meta property="og:description" content="NePriS（ネプリス）はお客様の個人情報を大切にしています。" />
+<meta property="og:image" content="{{ url_for('static', filename='img/logo2.png', _external=True) }}" />
+<meta name="twitter:description" content="NePriS（ネプリス）はお客様の個人情報を大切にしています。">
+{% endblock %}
+
+{% block content %}
+<h2>Terms Of Service</h2>
+本サービスを利用いただくには、以下の内容に同意いただく必要があります。
+
+<h3>目次</h3>
+<ul>
+    <li><a href="#tos">利用規約</a></li>
+    <li><a href="#privacy">プライバシーポリシー</a></li>
+</ul>
+
+<h3 id="tos">利用規約</h3>
+
+<h3 id="privacy">プライバシーポリシー</h3>
+
+{% endblock %}
