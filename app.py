@@ -125,7 +125,8 @@ def record_thanks():
     img_save = BytesIO()
     img_file.save(img_save, 'webp')
 
-    id = str(int(ws.col_values(1)[-1])+1).zfill(5)
+    id = str(int(max(ws.col_values(1)[1:],key=int))+1).zfill(5)
+
     filename = id + '.webp'
 
     answer = request.form
@@ -136,9 +137,9 @@ def record_thanks():
         answer['title'],
         filename,
         answer['date'],
-        answer.get('note', ''),
-        answer.get('no_seven', ''),
-        answer.get('no_family', '')
+        answer['note'],
+        answer['no_seven'],
+        answer['no_family']
     ]
     ws.append_row(save_data)
 
