@@ -161,14 +161,14 @@ def howto():
     yield 'howto', {}
 
 
-@app.get('/privacy-policy/')
-def privacy():
-    return render_template('privacy-policy.html')
+@app.get('/tos/')
+def tos():
+    return render_template('tos.html')
 
 
 @ext.register_generator
 def privacy():
-    yield 'privacy', {}
+    yield 'tos', {}
 
 
 @app.get('/work/<string:id>/')
