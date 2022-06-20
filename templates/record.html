@@ -105,7 +105,11 @@
         <input type="text" class="form-control" id="no_family" name=no_family pattern="[0-9A-Z]{10}" onInput="no_check(this);"  required="required">
         <div class="invalid-feedback">大文字英数字 10文字で入力してください。</div>
 	</div>
-    <p>登録の前に<a href="{{ url_for('privacy') }}">プライバシーポリシー</a>をご確認ください。</p>
+    <div class="mb-3 form-check">
+        <input class="form-check-input" type="checkbox" id="agreement" name="agreement" required>
+        <label class="form-check-label" for="agreement"><a href="{{ url_for('tos') }}">利用規約・プライバシーポリシー</a>を確認し同意します。</label>
+        <div class="invalid-feedback">サービスをご利用いただくには、利用規約・プライバシーポリシーにご同意いただく必要があります。</div>
+    </div>
     <button type="submit" class="btn btn-primary">登録</button>
 </form>
 <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
