@@ -6,7 +6,7 @@ from os.path import dirname, join
 import client
 import gspread
 from dotenv import load_dotenv
-from flask import Flask, render_template, request, send_file
+from flask import Flask, redirect, render_template, request, send_file
 from flask_sitemap import Sitemap
 from google.oauth2.service_account import Credentials
 from PIL import Image
@@ -46,6 +46,13 @@ file_send = client.file_send(os.environ['DB_URL'], os.environ['DB_TOKEN'])
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
 ext = Sitemap(app=app)
+
+@app.before_request
+def before_request():
+    if not request.is_secure and app.env != 'development':
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return redirect(url, code=code)
 
 
 def allowed_image(file: FileStorage):
