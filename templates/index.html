@@ -17,9 +17,9 @@
 {% block content %}
 <h2 class="text-center"><a class="btn btn-primary" href="{{ url_for('record') }}" role="button">ネップリの登録はこちらから</a></h2>
 
-<div class="row row-cols-md-4 g-3">
+<div class="row g-3">
     {% for i in data %}
-    <div class="col">
+    <div class="col-lg-3 col-md-4 col-sm-6">
         <a href="{{ url_for('work',id=i['id']) }}" class="card h-100 text-decoration-none">
             <img src="{{ url_for('get_img',filename=i['image']) }}" class="card-img-top">
             <div class="card-body text-dark">
@@ -33,6 +33,7 @@
     </div>
     {% endfor %}
 </div>
+
 <style>
     .card-img-top {
         aspect-ratio: 4 / 3;
