@@ -5,6 +5,7 @@ from os.path import dirname, join
 
 import client
 import gspread
+import nepris_otp
 from dotenv import load_dotenv
 from flask import Flask, redirect, render_template, request, send_file
 from flask_sitemap import Sitemap
