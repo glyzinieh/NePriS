@@ -88,11 +88,11 @@
 	<script>
 		window.nock = (a, b) => (nock.a = nock.a || []).push([a, b]);
 		window.nock("init", {
-			projectId: "j02h_MJxlPRzIFxGINszk",
-		})
+			projectId: "j02h_MJxlPRzIFxGINszk"
+		});
 		nock("setTheme", {
 			typography: {
-				fontFamily: "'M PLUS Rounded 1c', sans-serif",
+				fontFamily: "'M PLUS Rounded 1c', sans-serif"
 			}
 		});
 		window.nock("setWidgetConfig", {
@@ -109,7 +109,7 @@
 			emotionFiveGradeFiveMessage: "非常に良い",
 			fabType: "TEXT_WITH_ICON",
 			fabText: "フィードバック",
-			emotionType: "FIVE",
+			emotionType: "FIVE"
 		});
 		window.nock("renderWidgetFab");
 	</script>
