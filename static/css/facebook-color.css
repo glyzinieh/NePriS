@@ -1,0 +1,143 @@
+
+/*------------------------------------
+- COLOR facebook
+------------------------------------*/
+.alert-facebook {
+    color: #18253f;
+    background-color: #bac8e4;
+    border-color: #abbcde;
+}
+
+.alert-facebook hr {
+    border-top-color: #99add7;
+}
+
+.alert-facebook .alert-link {
+    color: #0a0f1b;
+}
+
+.badge-facebook {
+    color: #fff;
+    background-color: #3b5998;
+}
+
+.badge-facebook[href]:hover, .badge-facebook[href]:focus {
+    color: #fff;
+    background-color: #2c4373;
+}
+
+.bg-facebook {
+    background-color: #3b5998 !important;
+}
+
+a.bg-facebook:hover, a.bg-facebook:focus,
+button.bg-facebook:hover,
+button.bg-facebook:focus {
+    background-color: #2c4373 !important;
+}
+
+.border-facebook {
+    border-color: #3b5998 !important;
+}
+
+.btn-facebook {
+    color: #fff;
+    background-color: #3b5998;
+    border-color: #3b5998;
+}
+
+.btn-facebook:hover {
+    color: #fff;
+    background-color: #31497e;
+    border-color: #2c4373;
+}
+
+.btn-facebook:focus, .btn-facebook.focus {
+    box-shadow: 0 0 0 0.2rem rgba(59, 89, 152, 0.5);
+}
+
+.btn-facebook.disabled, .btn-facebook:disabled {
+    color: #fff;
+    background-color: #3b5998;
+    border-color: #3b5998;
+}
+
+.btn-facebook:not(:disabled):not(.disabled):active, .btn-facebook:not(:disabled):not(.disabled).active, .show > .btn-facebook.dropdown-toggle {
+    color: #fff;
+    background-color: #2c4373;
+    border-color: #283d68;
+}
+
+.btn-facebook:not(:disabled):not(.disabled):active:focus, .btn-facebook:not(:disabled):not(.disabled).active:focus, .show > .btn-facebook.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(59, 89, 152, 0.5);
+}
+
+.btn-outline-facebook {
+    color: #3b5998;
+    background-color: transparent;
+    border-color: #3b5998;
+}
+
+.btn-outline-facebook:hover {
+    color: #fff;
+    background-color: #3b5998;
+    border-color: #3b5998;
+}
+
+.btn-outline-facebook:focus, .btn-outline-facebook.focus {
+    box-shadow: 0 0 0 0.2rem rgba(59, 89, 152, 0.5);
+}
+
+.btn-outline-facebook.disabled, .btn-outline-facebook:disabled {
+    color: #3b5998;
+    background-color: transparent;
+}
+
+.btn-outline-facebook:not(:disabled):not(.disabled):active, .btn-outline-facebook:not(:disabled):not(.disabled).active, .show > .btn-outline-facebook.dropdown-toggle {
+    color: #fff;
+    background-color: #3b5998;
+    border-color: #3b5998;
+}
+
+.btn-outline-facebook:not(:disabled):not(.disabled):active:focus, .btn-outline-facebook:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-facebook.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(59, 89, 152, 0.5);
+}
+
+.list-group-item-facebook {
+    color: #18253f;
+    background-color: #abbcde;
+}
+
+.list-group-item-facebook.list-group-item-action:hover, .list-group-item-facebook.list-group-item-action:focus {
+    color: #18253f;
+    background-color: #99add7;
+}
+
+.list-group-item-facebook.list-group-item-action.active {
+    color: #fff;
+    background-color: #18253f;
+    border-color: #18253f;
+}
+
+.table-facebook,
+.table-facebook > th,
+.table-facebook > td {
+    background-color: #abbcde;
+}
+
+.table-hover .table-facebook:hover {
+    background-color: #99add7;
+}
+
+.table-hover .table-facebook:hover > td,
+.table-hover .table-facebook:hover > th {
+    background-color: #99add7;
+}
+
+.text-facebook {
+    color: #3b5998 !important;
+}
+
+a.text-facebook:hover, a.text-facebook:focus {
+    color: #2c4373 !important;
+}
