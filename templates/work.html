@@ -26,21 +26,31 @@
             <i class="bi bi-calendar-range"></i> {{ result['date'] }}まで
         </p>
         {% if result['note'] != '' %}
-            <div id="note" class="bg-light rounded border border-1 my-3"></div>
-            <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-            <script>
-                document.getElementById('note').innerHTML = marked.parse(`{{ result['note'] }}`);
-            </script>
+        <div id="note" class="bg-light rounded border border-1 my-3"></div>
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <script>
+            document.getElementById('note').innerHTML = marked.parse(`{{ result['note'] }}`);
+        </script>
         {% endif %}
-        <dl class="row">
-            <dt class="col-md-4"><span style="color: orange;">セブンイレブン</span></dt>
-            <dd class="col-md-8 align-middle">{{ result['no_seven'] }}</dd>
-            <dt class="col-md-4">
-                <span style="color: lightgreen;">ファミリーマート</span><br>
-                <span style="color: lightskyblue;">ローソン</span>
+        <dl>
+            <dt><span style="color: orange;">セブンイレブン</span></dt>
+            <dd>{{ result['no_seven'] }}</dd>
+            <dt>
+                <span style="color: lightgreen;">ファミリーマート</span>・<span style="color: lightskyblue;">ローソン</span>
             </dt>
-            <dd class="col-md-8 align-middle">{{ result['no_family'] }}</dd>
+            <dd>{{ result['no_family'] }}</dd>
         </dl>
+        <div class="btn-group d-flex" role="group">
+            <a class="btn btn-twitter flex-fill"
+                href="https://twitter.com/share?url={{ url_for('work', id=result['id'], _external=True) }}&via=NePr1S&related=NePr1S&hashtags=NePriS,nepris{{ result['id'] }}&text={{ result['title'] }}"
+                rel="nofollow" target="_blank" role="button"><i class="bi bi-twitter"></i></a>
+            <a class="btn btn-facebook flex-fill"
+                href="http://www.facebook.com/share.php?u={{ url_for('work', id=result['id'], _external=True) }}"
+                rel="nofollow" target="_blank" role="button"><i class="bi bi-facebook"></i></a>
+            <a class="btn btn-line flex-fill"
+                href="https://social-plugins.line.me/lineit/share?url={{ url_for('work', id=result['id'], _external=True) }}"
+                rel="nofollow" target="_blank" role="button"><i class="bi bi-line"></i></a>
+        </div>
     </div>
 </div>
 <style>

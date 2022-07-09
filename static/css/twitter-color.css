@@ -1,0 +1,143 @@
+
+/*------------------------------------
+- COLOR twitter
+------------------------------------*/
+.alert-twitter {
+    color: #085a8c;
+    background-color: #ddf1fd;
+    border-color: #cae9fb;
+}
+
+.alert-twitter hr {
+    border-top-color: #b2dffa;
+}
+
+.alert-twitter .alert-link {
+    color: #053b5c;
+}
+
+.badge-twitter {
+    color: #fff;
+    background-color: #1da1f2;
+}
+
+.badge-twitter[href]:hover, .badge-twitter[href]:focus {
+    color: #fff;
+    background-color: #0b85d0;
+}
+
+.bg-twitter {
+    background-color: #1da1f2 !important;
+}
+
+a.bg-twitter:hover, a.bg-twitter:focus,
+button.bg-twitter:hover,
+button.bg-twitter:focus {
+    background-color: #0b85d0 !important;
+}
+
+.border-twitter {
+    border-color: #1da1f2 !important;
+}
+
+.btn-twitter {
+    color: #fff;
+    background-color: #1da1f2;
+    border-color: #1da1f2;
+}
+
+.btn-twitter:hover {
+    color: #fff;
+    background-color: #0c8ede;
+    border-color: #0b85d0;
+}
+
+.btn-twitter:focus, .btn-twitter.focus {
+    box-shadow: 0 0 0 0.2rem rgba(29, 161, 242, 0.5);
+}
+
+.btn-twitter.disabled, .btn-twitter:disabled {
+    color: #fff;
+    background-color: #1da1f2;
+    border-color: #1da1f2;
+}
+
+.btn-twitter:not(:disabled):not(.disabled):active, .btn-twitter:not(:disabled):not(.disabled).active, .show > .btn-twitter.dropdown-toggle {
+    color: #fff;
+    background-color: #0b85d0;
+    border-color: #0b7cc1;
+}
+
+.btn-twitter:not(:disabled):not(.disabled):active:focus, .btn-twitter:not(:disabled):not(.disabled).active:focus, .show > .btn-twitter.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(29, 161, 242, 0.5);
+}
+
+.btn-outline-twitter {
+    color: #1da1f2;
+    background-color: transparent;
+    border-color: #1da1f2;
+}
+
+.btn-outline-twitter:hover {
+    color: #fff;
+    background-color: #1da1f2;
+    border-color: #1da1f2;
+}
+
+.btn-outline-twitter:focus, .btn-outline-twitter.focus {
+    box-shadow: 0 0 0 0.2rem rgba(29, 161, 242, 0.5);
+}
+
+.btn-outline-twitter.disabled, .btn-outline-twitter:disabled {
+    color: #1da1f2;
+    background-color: transparent;
+}
+
+.btn-outline-twitter:not(:disabled):not(.disabled):active, .btn-outline-twitter:not(:disabled):not(.disabled).active, .show > .btn-outline-twitter.dropdown-toggle {
+    color: #fff;
+    background-color: #1da1f2;
+    border-color: #1da1f2;
+}
+
+.btn-outline-twitter:not(:disabled):not(.disabled):active:focus, .btn-outline-twitter:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-twitter.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(29, 161, 242, 0.5);
+}
+
+.list-group-item-twitter {
+    color: #085a8c;
+    background-color: #cae9fb;
+}
+
+.list-group-item-twitter.list-group-item-action:hover, .list-group-item-twitter.list-group-item-action:focus {
+    color: #085a8c;
+    background-color: #b2dffa;
+}
+
+.list-group-item-twitter.list-group-item-action.active {
+    color: #fff;
+    background-color: #085a8c;
+    border-color: #085a8c;
+}
+
+.table-twitter,
+.table-twitter > th,
+.table-twitter > td {
+    background-color: #cae9fb;
+}
+
+.table-hover .table-twitter:hover {
+    background-color: #b2dffa;
+}
+
+.table-hover .table-twitter:hover > td,
+.table-hover .table-twitter:hover > th {
+    background-color: #b2dffa;
+}
+
+.text-twitter {
+    color: #1da1f2 !important;
+}
+
+a.text-twitter:hover, a.text-twitter:focus {
+    color: #0b85d0 !important;
+}
