@@ -58,9 +58,16 @@ def before_request():
         return redirect(url, code=code)
 
 
-def allowed_image(file: FileStorage):
+def allowed_image(file: FileStorage) -> bool:
     return '.' in file.filename and \
            re.match('image/.+', file.mimetype)
+
+
+def download_file(filename: str) -> BytesIO:
+    file = BytesIO()
+    file.write(file_send.read(filename).content)
+    file.seek(0)
+    return file
 
 
 @app.get('/')
@@ -194,10 +201,25 @@ def work(id):
 
 @app.get('/img/<string:filename>/')
 def get_img(filename):
-    file = BytesIO()
-    file.write(file_send.read(filename).content)
-    file.seek(0)
-    return send_file(file, attachment_filename=filename)
+    return send_file(download_file(filename), attachment_filename=filename)
+
+
+@app.get('/og_img/<string:filename>/')
+def get_og_img(filename):
+    fore = Image.open(download_file(filename))
+    width = fore.width
+    height = fore.height
+    if 1200/width <= 630/height:
+        ratio = 1200/width
+    else:
+        ratio = 630/height
+    fore = fore.resize((round(width*ratio),round(height*ratio)))
+    img = Image.new('RGB',(1200,630),(255, 255, 255))
+    img.paste(fore,(600-round(fore.width/2),315-round(fore.height/2)))
+    out = BytesIO()
+    img.save(out, 'webp')
+    out.seek(0)
+    return send_file(out, attachment_filename=filename)
 
 
 @app.errorhandler(400)
