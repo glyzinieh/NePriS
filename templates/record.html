@@ -17,10 +17,11 @@
 {% block content %}
 <h2>Record</h2>
 <p>現在、セブンイレブン・ファミリーマート・ローソンのネットプリントにのみ対応しております。</p>
-<form class="needs-validation" action="/record/thanks/" method="post" enctype="multipart/form-data" novalidate>
+<form class="needs-validation" action="{{ url_for('record_thanks') }}" method="post"
+    enctype="multipart/form-data" novalidate>
     <div class="mb-3">
         <label for="email" class="form-label">メールアドレス<span class="badge bg-danger">必須</span></label>
-        <input type="email" class="form-control"id="email" name=email required>
+        <input type="email" class="form-control" id="email" name=email required>
         <div class="invalid-feedback">有効なメールアドレスを入力してください。</div>
     </div>
     <div class="mb-3">
@@ -35,36 +36,37 @@
     </div>
     <div class="mb-2">
         <label for="image" class="form-label">画像<span class="badge bg-danger">必須</span></label>
-        <input type="file" class="form-control" id="image" onChange="imgPreView(event); img_check();" name=image accept="image/*" required>
+        <input type="file" class="form-control" id="image" onChange="imgPreView(event); img_check();" name=image
+            accept="image/*" required>
         <div class="invalid-feedback">500KB以下の画像を選択してください。</div>
     </div>
-	<div class="mb-3">
-		<div id="preview"></div>
-		<script>
+    <div class="mb-3">
+        <div id="preview"></div>
+        <script>
             function imgPreView(event) {
                 var file = event.target.files[0];
                 var reader = new FileReader();
                 var preview = document.getElementById("preview");
                 var previewImage = document.getElementById("previewImage");
-                 
-                if(previewImage != null) {
-					preview.removeChild(previewImage);
-                }
-                reader.onload = function(event) {
-					var img = document.createElement("img");
-					img.setAttribute("src", reader.result);
-					img.setAttribute("id", "previewImage");
 
-					img.setAttribute("class","img-fluid border border-2")
-					img.setAttribute("max-width","100%");
-					img.setAttribute("height","auto");
-					preview.appendChild(img);
+                if (previewImage != null) {
+                    preview.removeChild(previewImage);
+                }
+                reader.onload = function (event) {
+                    var img = document.createElement("img");
+                    img.setAttribute("src", reader.result);
+                    img.setAttribute("id", "previewImage");
+
+                    img.setAttribute("class", "img-fluid border border-2")
+                    img.setAttribute("max-width", "100%");
+                    img.setAttribute("height", "auto");
+                    preview.appendChild(img);
                 };
-               
+
                 reader.readAsDataURL(file);
             }
         </script>
-	</div>
+    </div>
     <div class="mb-3">
         <label for="date" class="form-label">有効期限<span class="badge bg-danger">必須</span></label>
         <input type="date" class="form-control" id="date" name=date required>
@@ -73,7 +75,8 @@
     <div class="mb-3">
         <label for="note" class="form-label">備考<span class="badge bg-info text-dark">任意</span></label>
         <div id="note-help" class="form-text">作品の紹介や用紙サイズなどをご入力ください。マークダウンが利用できます。</div>
-        <textarea class="form-control" id="note" rows="10" maxlength="1000" aria-describedby="note-help" name=note></textarea>
+        <textarea class="form-control" id="note" rows="10" maxlength="1000" aria-describedby="note-help"
+            name=note></textarea>
         <!-- SimpleMDEの読み込み -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
         <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
@@ -83,10 +86,10 @@
                 forceSync: true,
                 spellChecker: false,
                 toolbar: [
-                "bold","italic","strikethrough","heading","|",
-                "code","quote","unordered-list","ordered-list","|",
-                "link","image","table","horizontal-rule","|",
-                "preview","guide"
+                    "bold", "italic", "strikethrough", "heading", "|",
+                    "code", "quote", "unordered-list", "ordered-list", "|",
+                    "link", "image", "table", "horizontal-rule", "|",
+                    "preview", "guide"
                 ]
             });
         </script>
@@ -97,17 +100,20 @@
     </div>
     <div class="mb-1">
         <label for="no_seven" class="form-label">セブンイレブン</label>
-        <input type="text" class="form-control" id="no_seven" name=no_seven pattern="[0-9A-Z]{8}" onInput="no_check(this);" required="required">
+        <input type="text" class="form-control" id="no_seven" name=no_seven pattern="[0-9A-Z]{8}"
+            onInput="no_check(this);" required="required">
         <div class="invalid-feedback">大文字英数字 8文字で入力してください。</div>
     </div>
-	<div class="mb-3">
-		<label for="no_family" class="form-label">ファミリーマート・ローソン</label>
-        <input type="text" class="form-control" id="no_family" name=no_family pattern="[0-9A-Z]{10}" onInput="no_check(this);"  required="required">
+    <div class="mb-3">
+        <label for="no_family" class="form-label">ファミリーマート・ローソン</label>
+        <input type="text" class="form-control" id="no_family" name=no_family pattern="[0-9A-Z]{10}"
+            onInput="no_check(this);" required="required">
         <div class="invalid-feedback">大文字英数字 10文字で入力してください。</div>
-	</div>
+    </div>
     <div class="mb-3 form-check">
         <input class="form-check-input" type="checkbox" id="agreement" name="agreement" required>
-        <label class="form-check-label" for="agreement"><a href="{{ url_for('tos') }}">利用規約・プライバシーポリシー</a>を確認し同意します。</label>
+        <label class="form-check-label" for="agreement"><a
+                href="{{ url_for('tos') }}">利用規約・プライバシーポリシー</a>を確認し同意します。</label>
         <div class="invalid-feedback">サービスをご利用いただくには、利用規約・プライバシーポリシーにご同意いただく必要があります。</div>
     </div>
     <button type="submit" class="btn btn-primary">登録</button>
