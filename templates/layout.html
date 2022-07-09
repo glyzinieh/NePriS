@@ -62,8 +62,8 @@
 					</li>
 					<li class="nav-item"><a class="nav-link" id="link_contact"
 							href="{{ url_for('contact') }}">Contact</a></li>
-					<li class="nav-item"><a class="nav-link" id="link_tos"
-							href="{{ url_for('tos') }}">Terms Of Service</a></li>
+					<li class="nav-item"><a class="nav-link" id="link_tos" href="{{ url_for('tos') }}">Terms Of
+							Service</a></li>
 				</ul>
 				<script type="text/javascript">
 					const page_name = '{% block page_name %}{% endblock %}'
@@ -83,6 +83,37 @@
 			{% endblock %}
 		</main>
 	</div>
+
+	<!-- Nock -->
+	<script>
+		window.nock = (a, b) => (nock.a = nock.a || []).push([a, b]);
+		window.nock("init", {
+			projectId: "j02h_MJxlPRzIFxGINszk"
+		});
+		nock("setTheme", {
+			typography: {
+				fontFamily: "'M PLUS Rounded 1c', sans-serif"
+			}
+		});
+		window.nock("setWidgetConfig", {
+			ticketInputPlaceholder: "ご意見・ご要望をお聞かせください。",
+			ticketThanksMessage: "ありがとうございます。フィードバックを送信しました。",
+			ticketButtonSubmitText: "送信する",
+			ticketButtonResetText: "続ける",
+			emotionQuestionMessage: "NePriSはいかがですか？",
+			emotionThanksMessage: "回答ありがとうございます",
+			emotionFiveGradeOneMessage: "非常に良くない",
+			emotionFiveGradeTwoMessage: "あまり良くない",
+			emotionFiveGradeThreeMessage: "良くも悪くもない",
+			emotionFiveGradeFourMessage: "そこそこ良い",
+			emotionFiveGradeFiveMessage: "非常に良い",
+			fabType: "TEXT_WITH_ICON",
+			fabText: "フィードバック",
+			emotionType: "FIVE"
+		});
+		window.nock("renderWidgetFab");
+	</script>
+	<script async src="https://widget.nocker.app"></script>
 
 	<!-- Bootstrapを読み込み -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
