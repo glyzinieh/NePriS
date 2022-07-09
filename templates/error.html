@@ -1,15 +1,16 @@
 {% extends "layout.html" %}
 
-{% block title %}{{ code }}エラー{% endblock %}
+{% block title %}{{ error.name }}エラー{% endblock %}
 
 {% block head %}
 {% endblock %}
 
 {% block content %}
-<h2>{{ name }}</h2>
+<h2>{{ error.name }}</h2>
 <p>
     {{ msg }}<br>
-    エラーコード：{{ code }}
+    {{ error.description }}<br>
+    エラーコード：{{ error.name }}
 </p>
 <p>
     お問い合わせは<a href="{{ url_for('contact') }}">こちら</a>から<b>エラーが発生した状況</b>と<b>エラーコード</b>を送信してください。

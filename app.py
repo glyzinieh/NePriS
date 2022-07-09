@@ -1,5 +1,8 @@
+import datetime
 import os
+from queue import PriorityQueue
 import re
+import time
 from io import BytesIO
 from os.path import dirname, join
 
@@ -202,7 +205,18 @@ def error_handler(error):
         msg = 'ページが見つかりませんでした。'
     else:
         msg = str()
-    return render_template('error.html', name=error.name, code=error.code, msg=msg),error.code
+
+    dt = str(datetime.datetime.fromtimestamp(time.time()))
+    log = [
+        dt,
+        error.code,
+        error.name,
+        request.remote_addr,
+        request.path,
+        request.user_agent.string
+    ]
+    logs_sheet.append_row(log)
+    return render_template('error.html', error=error, msg=msg),error.code
 
 
 if __name__ == "__main__":
