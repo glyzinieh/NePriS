@@ -39,7 +39,8 @@ credentials = Credentials.from_service_account_info(credential, scopes=scope)
 gc = gspread.authorize(credentials)
 # シートを開く
 wb = gc.open_by_key(os.environ['SHEET_DATABASE_KEY'])
-ws = wb.worksheet("Main")
+main_sheet = wb.worksheet("Main")
+logs_sheet = wb.worksheet("Logs")
 
 file_send = client.file_send(os.environ['DB_URL'], os.environ['DB_TOKEN'])
 
@@ -62,7 +63,7 @@ def allowed_image(file: FileStorage):
 
 @app.get('/')
 def index():
-    data = ws.get_all_dicts()[-50:]
+    data = main_sheet.get_all_dicts()[-50:]
     data.reverse()
     return render_template('index.html', data=data)
 
@@ -132,7 +133,7 @@ def record_thanks():
     img_save = BytesIO()
     img_file.save(img_save, 'webp')
 
-    id = str(int(max(ws.col_values(1)[1:],key=int))+1).zfill(5)
+    id = str(int(max(main_sheet.col_values(1)[1:],key=int))+1).zfill(5)
 
     filename = id + '.webp'
 
@@ -148,7 +149,7 @@ def record_thanks():
         answer['no_seven'],
         answer['no_family']
     ]
-    ws.append_row(save_data)
+    main_sheet.append_row(save_data)
 
     file_send.write(filename, img_save.getvalue())
     return render_template(
@@ -180,7 +181,7 @@ def privacy():
 
 @app.get('/work/<string:id>/')
 def work(id):
-    db = ws.get_all_dicts()
+    db = main_sheet.get_all_dicts()
     detail = next(i for i in db if i['id'] == id)
     return render_template('work.html', result=detail)
 
@@ -191,6 +192,17 @@ def get_img(filename):
     file.write(file_send.read(filename).content)
     file.seek(0)
     return send_file(file, attachment_filename=filename)
+
+
+@app.errorhandler(400)
+@app.errorhandler(404)
+@app.errorhandler(500)
+def error_handler(error):
+    if error.code == 404:
+        msg = 'ページが見つかりませんでした。'
+    else:
+        msg = str()
+    return render_template('error.html', name=error.name, code=error.code, msg=msg),error.code
 
 
 if __name__ == "__main__":
