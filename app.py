@@ -139,7 +139,11 @@ def record_thanks():
 
     filename = id + '.webp'
 
-    answer = request.form
+    answer = request.form.to_dict()
+    if answer['no_seven'] == '':
+        answer['no_seven'] = '登録されていません'
+    if answer['no_family'] == '':
+        answer['no_family'] = '登録されていません'
     save_data = [
         id,
         answer['email'],
