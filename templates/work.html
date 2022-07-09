@@ -25,12 +25,20 @@
             <i class="bi bi-person-fill"></i> {{ result['name'] }}<br>
             <i class="bi bi-calendar-range"></i> {{ result['date'] }}まで
         </p>
+        <div class="row" style="text-align:center">
+            <div class="col-3">
+                <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large"
+                    data-text="{{ result['title'] }}" data-via="NePr1S" data-hashtags="NePriS,nepris{{ result['id'] }}"
+                    data-related="NePr1S" data-show-count="false">Tweet</a>
+            </div>
+
+        </div>
         {% if result['note'] != '' %}
-            <div id="note" class="bg-light rounded border border-1 my-3"></div>
-            <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-            <script>
-                document.getElementById('note').innerHTML = marked.parse(`{{ result['note'] }}`);
-            </script>
+        <div id="note" class="bg-light rounded border border-1 my-3"></div>
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <script>
+            document.getElementById('note').innerHTML = marked.parse(`{{ result['note'] }}`);
+        </script>
         {% endif %}
         <dl class="row">
             <dt class="col-6"><span style="color: orange;">セブンイレブン</span></dt>
@@ -50,4 +58,5 @@
         object-fit: contain;
     }
 </style>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {% endblock %}
