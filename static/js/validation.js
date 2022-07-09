@@ -43,6 +43,11 @@ function no_check($this) {
             if (!form.checkValidity()) {
                 event.preventDefault()
                 event.stopPropagation()
+            } else {
+                if (!window.confirm('登録してよろしいですか？')) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
             }
 
             form.classList.add('was-validated')
