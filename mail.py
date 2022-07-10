@@ -1,25 +1,24 @@
-import os
 import smtplib
 from email.mime.text import MIMEText
 from email.utils import formatdate
-from os.path import dirname, join
-from time import time
-
-from dotenv import load_dotenv
-
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
 
 
-smtpobj = smtplib.SMTP('smtp.gmail.com',587)
-smtpobj.starttls()
-smtpobj.login(os.environ['GMAIL_ACCOUNT'],os.environ['GMAIL_PASS'])
+class gmail:
+    def __init__(self, address: str, password: str) -> None:
+        self.smtpobj = smtplib.SMTP('smtp.gmail.com', 587)
+        self.smtpobj.starttls()
+        self.smtpobj.login(address, password)
 
-msg = MIMEText('test')
-msg['Subject'] = 'NePriSからメール送信のテスト'
-msg['From'] = os.environ['GMAIL_ACCOUNT']
-msg['To'] = 'glyzinie.h@gmail.com'
-msg['Date'] = formatdate()
+    def creat(self, Subject: str, Body: str, To: str) -> MIMEText:
+        msg = MIMEText(Body)
+        msg['Subject'] = Subject
+        msg['From'] = self.address
+        msg['To'] = To
+        msg['Date'] = formatdate()
+        return msg
 
-smtpobj.send_message(msg)
-smtpobj.close()
+    def send(self, msg: MIMEText):
+        return self.smtpobj.send_message(msg)
+
+    def __del__(self):
+        self.smtpobj.close()
