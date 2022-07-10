@@ -5,6 +5,7 @@ from email.utils import formatdate
 
 class gmail:
     def __init__(self, address: str, password: str) -> None:
+        self.address = address
         self.smtpobj = smtplib.SMTP('smtp.gmail.com', 587)
         self.smtpobj.starttls()
         self.smtpobj.login(address, password)
