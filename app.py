@@ -242,6 +242,7 @@ def delete(id):
         return jsonify({'message': 'wrong_OTP'}), 401
     detail = search_detail(id)
     ws.delete_row(detail[0]+2)
+    file_send.delete(id + '.webp')
     return render_template('delete.html', detail=detail[1])
 
 

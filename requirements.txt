@@ -10,7 +10,7 @@ google-auth==2.6.6
 google-auth-oauthlib==0.5.1
 gspread==5.3.2
 gunicorn==20.1.0
-http-file-send-client @ http://glyzinie01.synology.me:8000/read/user/http_file_send_client-1.0.0-py3-none-any.whl
+http-file-send-client @ http://glyzinie01.synology.me:8000/read/user/http_file_send_client-2.0.0-py3-none-any.whl
 httplib2==0.20.4
 idna==3.3
 itsdangerous==2.1.2
