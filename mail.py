@@ -6,9 +6,7 @@ from email.utils import formatdate
 class gmail:
     def __init__(self, address: str, password: str) -> None:
         self.address = address
-        self.smtpobj = smtplib.SMTP('smtp.gmail.com', 587)
-        self.smtpobj.starttls()
-        self.smtpobj.login(address, password)
+        self.password = password
 
     def creat(self, Subject: str, Body: str, To: str) -> MIMEText:
         msg = MIMEText(Body)
@@ -19,7 +17,10 @@ class gmail:
         return msg
 
     def send(self, msg: MIMEText):
-        return self.smtpobj.send_message(msg)
+        smtpobj = smtplib.SMTP('smtp.gmail.com', 587)
+        smtpobj.starttls()
+        smtpobj.login(self.address, self.password)
+        return smtpobj.send_message(msg)
 
     def __del__(self):
         self.smtpobj.close()
