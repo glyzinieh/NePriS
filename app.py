@@ -1,3 +1,4 @@
+import datetime
 import os
 import re
 import textwrap
@@ -44,7 +45,8 @@ credentials = Credentials.from_service_account_info(credential, scopes=scope)
 gc = gspread.authorize(credentials)
 # シートを開く
 wb = gc.open_by_key(os.environ['SHEET_DATABASE_KEY'])
-ws = wb.worksheet("Main")
+main_sheet = wb.worksheet("Main")
+logs_sheet = wb.worksheet("Logs")
 
 file_send = client.file_send(os.environ['DB_URL'], os.environ['DB_TOKEN'])
 gmail = mail.gmail(os.environ['GMAIL_ACCOUNT'], os.environ['GMAIL_PASS'])
@@ -63,13 +65,13 @@ def before_request():
         return redirect(url, code=code)
 
 
-def allowed_image(file: FileStorage):
+def allowed_image(file: FileStorage) -> bool:
     return '.' in file.filename and \
            re.match('image/.+', file.mimetype)
-
-
+		   
+		   
 def search_detail(id: str) -> list:
-    db = ws.get_all_dicts()
+    db = main_sheet.get_all_dicts()
     detail = next([db.index(i), i] for i in db if i['id'] == id)
     return detail
 
@@ -78,11 +80,18 @@ def otp_check(id: str, otp: str) -> bool:
     detail = search_detail(id)
     return otp_generator.check(detail[1]['otp_datetime'], otp) and \
         float(time.time()) - float(detail[1]['otp_datetime']) < 60*60
+		 
+		 
+def download_file(filename: str) -> BytesIO:
+    file = BytesIO()
+    file.write(file_send.read(filename).content)
+    file.seek(0)
+    return file
 
 
 @app.get('/')
 def home():
-    data = ws.get_all_dicts()[-50:]
+    data = main_sheet.get_all_dicts()[-50:]
     data.reverse()
     return render_template('index.html', data=data)
 
@@ -152,11 +161,15 @@ def record_thanks():
     img_save = BytesIO()
     img_file.save(img_save, 'webp')
 
-    id = str(int(max(ws.col_values(1)[1:], key=int))+1).zfill(5)
+    id = str(int(max(main_sheet.col_values(1)[1:],key=int))+1).zfill(5)
 
     filename = id + '.webp'
 
-    answer = request.form
+    answer = request.form.to_dict()
+    if answer['no_seven'] == '':
+        answer['no_seven'] = '登録されていません'
+    if answer['no_family'] == '':
+        answer['no_family'] = '登録されていません'
     save_data = [
         id,
         answer['email'],
@@ -168,7 +181,7 @@ def record_thanks():
         answer['no_seven'],
         answer['no_family']
     ]
-    ws.append_row(save_data)
+    main_sheet.append_row(save_data)
 
     file_send.write(filename, img_save.getvalue())
     return render_template(
@@ -200,7 +213,7 @@ def privacy():
 
 @app.get('/work/<string:id>/')
 def work(id):
-    detail = search_detail(id)[1]
+	detail = search_detail(id)[1]
     return render_template('work.html', result=detail)
 
 
@@ -248,10 +261,47 @@ def delete(id):
 
 @app.get('/img/<string:filename>/')
 def get_img(filename):
-    file = BytesIO()
-    file.write(file_send.read(filename).content)
-    file.seek(0)
-    return send_file(file, attachment_filename=filename)
+    return send_file(download_file(filename), attachment_filename=filename)
+
+
+@app.get('/og_img/<string:filename>/')
+def get_og_img(filename):
+    fore = Image.open(download_file(filename))
+    width = fore.width
+    height = fore.height
+    if 1200/width <= 630/height:
+        ratio = 1200/width
+    else:
+        ratio = 630/height
+    fore = fore.resize((round(width*ratio),round(height*ratio)))
+    img = Image.new('RGB',(1200,630),(255, 255, 255))
+    img.paste(fore,(600-round(fore.width/2),315-round(fore.height/2)))
+    out = BytesIO()
+    img.save(out, 'webp')
+    out.seek(0)
+    return send_file(out, attachment_filename=filename)
+
+
+@app.errorhandler(400)
+@app.errorhandler(404)
+@app.errorhandler(500)
+def error_handler(error):
+    if error.code == 404:
+        msg = 'ページが見つかりませんでした。'
+    else:
+        msg = str()
+
+    dt = str(datetime.datetime.fromtimestamp(time.time()))
+    log = [
+        dt,
+        error.code,
+        error.name,
+        request.remote_addr,
+        request.path,
+        request.user_agent.string
+    ]
+    logs_sheet.append_row(log)
+    return render_template('error.html', error=error, msg=msg),error.code
 
 
 if __name__ == "__main__":
