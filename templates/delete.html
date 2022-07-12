@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}Delete{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<h2>Delete</h2>
+<p>
+    {{ detail['title'] }}（ID：{{ detail['id'] }}）を削除しました。
+</p>
+<p>
+    <a href="{{ url_for('home') }}">こちら</a>からトップページに戻ります。
+</p>
+{% endblock %}

@@ -9,7 +9,8 @@ import client
 import gspread
 import nepris_otp
 from dotenv import load_dotenv
-from flask import Flask, redirect, render_template, request, send_file, url_for
+from flask import (Flask, jsonify, redirect, render_template, request,
+                   send_file, url_for)
 from flask_sitemap import Sitemap
 from google.oauth2.service_account import Credentials
 from PIL import Image
@@ -71,6 +72,12 @@ def search_detail(id: str) -> list:
     db = ws.get_all_dicts()
     detail = next([db.index(i), i] for i in db if i['id'] == id)
     return detail
+
+
+def otp_check(id: str, otp: str) -> bool:
+    detail = search_detail(id)
+    return otp_generator.check(detail[1]['otp_datetime'], otp) and \
+        float(time.time()) - float(detail[1]['otp_datetime']) < 60*60
 
 
 @app.get('/')
@@ -200,7 +207,7 @@ def work(id):
 @app.get('/confirm/<string:id>/')
 def confirm_delete(id):
     detail = search_detail(id)
-    now = time.time()
+    now = format(time.time(), '.4f')
     otp = otp_generator.generate(now)
     ws.update_cell(detail[0]+2, 10, now)
     Body = textwrap.dedent(f"""\
@@ -233,25 +240,25 @@ def confirm_delete(id):
             To=detail[1]['email']
         )
     )
-    return otp
+    return render_template('confirm.html')
 
 
 @app.get('/delete/<string:id>/')
 def delete(id):
-    detail = search_detail(id)
     otp = request.args.get('otp')
-    res = otp_generator.check(detail[1]['otp_datetime'], otp)
-    # 一時間以内かチェック
-    return str(res)
+    if not otp_check(id, otp):
+        return jsonify({'message': 'wrong_OTP'}), 401
+    detail = search_detail(id)
+    ws.delete_row(detail[0]+2)
+    return render_template('delete.html', detail=detail[1])
 
 
-@app.get('/edit/<string:id>/')
-def edit(id):
-    detail = search_detail(id)
-    otp = request.args.get('otp')
-    res = otp_generator.check(detail[1]['otp_datetime'], otp)
-    # 一時間以内かチェック
-    return str(res)
+# @app.get('/edit/<string:id>/')
+# def edit(id):
+#     otp = request.args.get('otp')
+#     if not otp_check(id, otp):
+#         return jsonify({'message': 'wrong_OTP'}), 401
+#     return 'ok'
 
 
 @app.get('/img/<string:filename>/')
