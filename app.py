@@ -1,20 +1,24 @@
 import datetime
 import os
 import re
+import textwrap
 import time
 from io import BytesIO
 from os.path import dirname, join
 
 import client
 import gspread
+import nepris_otp
 from dotenv import load_dotenv
-from flask import Flask, redirect, render_template, request, send_file
+from flask import (Flask, jsonify, redirect, render_template, request,
+                   send_file, url_for)
 from flask_sitemap import Sitemap
 from google.oauth2.service_account import Credentials
 from PIL import Image
 from werkzeug.datastructures import FileStorage
 
 import gspread_mod
+import mail
 
 # ローカル環境で環境編集を取得
 dotenv_path = join(dirname(__file__), '.env')
@@ -45,10 +49,13 @@ main_sheet = wb.worksheet("Main")
 logs_sheet = wb.worksheet("Logs")
 
 file_send = client.file_send(os.environ['DB_URL'], os.environ['DB_TOKEN'])
+gmail = mail.gmail(os.environ['GMAIL_ACCOUNT'], os.environ['GMAIL_PASS'])
+otp_generator = nepris_otp.otp(os.environ['OTP_SECRET'])
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
 ext = Sitemap(app=app)
+
 
 @app.before_request
 def before_request():
@@ -61,8 +68,20 @@ def before_request():
 def allowed_image(file: FileStorage) -> bool:
     return '.' in file.filename and \
            re.match('image/.+', file.mimetype)
+		   
+		   
+def search_detail(id: str) -> list:
+    db = main_sheet.get_all_dicts()
+    detail = next([db.index(i), i] for i in db if i['id'] == id)
+    return detail
 
 
+def otp_check(id: str, otp: str) -> bool:
+    detail = search_detail(id)
+    return otp_generator.check(detail[1]['otp_datetime'], otp) and \
+        float(time.time()) - float(detail[1]['otp_datetime']) < 60*60
+		 
+		 
 def download_file(filename: str) -> BytesIO:
     file = BytesIO()
     file.write(file_send.read(filename).content)
@@ -71,15 +90,15 @@ def download_file(filename: str) -> BytesIO:
 
 
 @app.get('/')
-def index():
+def home():
     data = main_sheet.get_all_dicts()[-50:]
     data.reverse()
     return render_template('index.html', data=data)
 
 
 @ext.register_generator
-def index():
-    yield 'index', {}
+def home():
+    yield 'home', {}
 
 
 @app.get('/about/')
@@ -194,9 +213,50 @@ def privacy():
 
 @app.get('/work/<string:id>/')
 def work(id):
-    db = main_sheet.get_all_dicts()
-    detail = next(i for i in db if i['id'] == id)
+	detail = search_detail(id)[1]
     return render_template('work.html', result=detail)
+
+
+@app.get('/confirm/<string:id>/')
+def confirm_delete(id):
+    detail = search_detail(id)
+    now = format(time.time(), '.4f')
+    otp = otp_generator.generate(now)
+    ws.update_cell(detail[0]+2, 10, now)
+    Body = textwrap.dedent(f"""\
+    {detail[1]['name']}様
+
+    NePriS運営のうぃすたりあです。NePriSをご利用いただきありがとうございます。
+
+    作品の削除をご希望の場合、下記の認証リンクからお手続きいただけます。
+    { url_for('delete',id=id,otp=otp,_external=True) }
+
+    ※認証リンクは1時間で無効になります。
+    ※このメールに心当たりが無い場合、どなたかがメールアドレスを誤って入力された可能性があります。このメールは破棄していただいてかまいません。
+    --------------------
+    NePriS（ネプリス）
+    { url_for('home',_external=True) }
+    --------------------\
+    """)
+    gmail.send(
+        gmail.creat(
+            Subject='削除の確認｜NePriS',
+            Body=Body,
+            To=detail[1]['email']
+        )
+    )
+    return render_template('confirm.html')
+
+
+@app.get('/delete/<string:id>/')
+def delete(id):
+    otp = request.args.get('otp')
+    if not otp_check(id, otp):
+        return jsonify({'message': 'wrong_OTP'}), 401
+    detail = search_detail(id)
+    ws.delete_row(detail[0]+2)
+    file_send.delete(id + '.webp')
+    return render_template('delete.html', detail=detail[1])
 
 
 @app.get('/img/<string:filename>/')

@@ -23,4 +23,9 @@ SHEET_DATABASE_KEY=(シートID)
 
 DB_URL=(データベースURL)
 DB_TOKEN=(データベースTOKEN)
+
+OTP_SECRET=(OTP生成用のシークレットコード)
+
+GMAIL_ACCOUNT=(gmailのアドレス)
+GMAIL_PASS=(gmailのパスワード)
 ```

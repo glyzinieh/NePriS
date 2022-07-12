@@ -32,7 +32,7 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/facebook-color.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/line-color.css') }}">
 	<!-- titleを設定 -->
-	<title>{% block title %}{% endblock %}｜NePriS(β)</title>
+	<title>{% block title %}{% endblock %}｜NePriS</title>
 	<!-- faviconを指定 -->
 	<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
 
@@ -52,7 +52,7 @@
 <body>
 	<nav class="navbar navbar-expand-md navbar-light sticky-top" style="background-color: #defce4;">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="{{ url_for('index') }}">
+			<a class="navbar-brand" href="{{ url_for('home') }}">
 				<img src="{{ url_for('static', filename='img/logo1.png') }}" alt="NePriS" width="auto" height="24">
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_toggler"
@@ -61,7 +61,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbar_toggler">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link" id="link_home" href="{{ url_for('index') }}">Home</a></li>
+					<li class="nav-item"><a class="nav-link" id="link_home" href="{{ url_for('home') }}">Home</a></li>
 					<li class="nav-item"><a class="nav-link" id="link_about" href="{{ url_for('about') }}">About</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" id="link_contact"
