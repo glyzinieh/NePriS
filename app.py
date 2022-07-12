@@ -68,8 +68,8 @@ def before_request():
 def allowed_image(file: FileStorage) -> bool:
     return '.' in file.filename and \
            re.match('image/.+', file.mimetype)
-		   
-		   
+
+
 def search_detail(id: str) -> list:
     db = main_sheet.get_all_dicts()
     detail = next([db.index(i), i] for i in db if i['id'] == id)
@@ -80,8 +80,8 @@ def otp_check(id: str, otp: str) -> bool:
     detail = search_detail(id)
     return otp_generator.check(detail[1]['otp_datetime'], otp) and \
         float(time.time()) - float(detail[1]['otp_datetime']) < 60*60
-		 
-		 
+
+
 def download_file(filename: str) -> BytesIO:
     file = BytesIO()
     file.write(file_send.read(filename).content)
@@ -161,7 +161,7 @@ def record_thanks():
     img_save = BytesIO()
     img_file.save(img_save, 'webp')
 
-    id = str(int(max(main_sheet.col_values(1)[1:],key=int))+1).zfill(5)
+    id = str(int(max(main_sheet.col_values(1)[1:], key=int))+1).zfill(5)
 
     filename = id + '.webp'
 
@@ -213,7 +213,7 @@ def privacy():
 
 @app.get('/work/<string:id>/')
 def work(id):
-	detail = search_detail(id)[1]
+    detail = search_detail(id)[1]
     return render_template('work.html', result=detail)
 
 
@@ -222,7 +222,7 @@ def confirm_delete(id):
     detail = search_detail(id)
     now = format(time.time(), '.4f')
     otp = otp_generator.generate(now)
-    ws.update_cell(detail[0]+2, 10, now)
+    main_sheet.update_cell(detail[0]+2, 10, now)
     Body = textwrap.dedent(f"""\
     {detail[1]['name']}様
 
@@ -254,7 +254,7 @@ def delete(id):
     if not otp_check(id, otp):
         return jsonify({'message': 'wrong_OTP'}), 401
     detail = search_detail(id)
-    ws.delete_row(detail[0]+2)
+    main_sheet.delete_row(detail[0]+2)
     file_send.delete(id + '.webp')
     return render_template('delete.html', detail=detail[1])
 
@@ -273,9 +273,9 @@ def get_og_img(filename):
         ratio = 1200/width
     else:
         ratio = 630/height
-    fore = fore.resize((round(width*ratio),round(height*ratio)))
-    img = Image.new('RGB',(1200,630),(255, 255, 255))
-    img.paste(fore,(600-round(fore.width/2),315-round(fore.height/2)))
+    fore = fore.resize((round(width*ratio), round(height*ratio)))
+    img = Image.new('RGB', (1200, 630), (255, 255, 255))
+    img.paste(fore, (600-round(fore.width/2), 315-round(fore.height/2)))
     out = BytesIO()
     img.save(out, 'webp')
     out.seek(0)
@@ -301,7 +301,7 @@ def error_handler(error):
         request.user_agent.string
     ]
     logs_sheet.append_row(log)
-    return render_template('error.html', error=error, msg=msg),error.code
+    return render_template('error.html', error=error, msg=msg), error.code
 
 
 if __name__ == "__main__":
