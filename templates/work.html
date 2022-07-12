@@ -50,6 +50,9 @@
             <a class="btn btn-line flex-fill"
                 href="https://social-plugins.line.me/lineit/share?url={{ url_for('work', id=result['id'], _external=True) }}"
                 rel="nofollow" target="_blank" role="button"><i class="bi bi-line"></i></a>
+            <a class="btn btn-dark flex-fill"
+                href="javascript:copy_url_to_clipboard();"
+                role="button"><i class="bi bi-link-45deg"></i></a>
         </div>
     </div>
 </div>
@@ -60,4 +63,10 @@
         object-fit: contain;
     }
 </style>
+<script>
+    function copy_url_to_clipboard(){
+        navigator.clipboard.writeText("{{ url_for('work', id=result['id'], _external=True) }}");
+        alert("リンクをクリップボードにコピーしました。");
+    }
+</script>
 {% endblock %}
