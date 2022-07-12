@@ -253,14 +253,6 @@ def delete(id):
     return render_template('delete.html', detail=detail[1])
 
 
-# @app.get('/edit/<string:id>/')
-# def edit(id):
-#     otp = request.args.get('otp')
-#     if not otp_check(id, otp):
-#         return jsonify({'message': 'wrong_OTP'}), 401
-#     return 'ok'
-
-
 @app.get('/img/<string:filename>/')
 def get_img(filename):
     file = BytesIO()
