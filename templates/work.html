@@ -20,7 +20,18 @@
         <img src="{{ url_for('get_img',filename=result['image']) }}" class="img-fluid rounded border border-1">
     </div>
     <div class="col-md-6 col-md-offset-1">
-        <h2>{{ result['title'] }}</h2>
+        <div class="row border-bottom">
+            <h2 class="col-11" style="overflow-wrap: break-word;">{{ result['title'] }}</h2>
+            <div class="dropdown col-1">
+                <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></button>
+
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="{{ url_for('confirm_delete',id=result['id']) }}"
+                            onclick="return confirm('本人確認のため、登録されているメールアドレスにメールを送信します。')">作品を削除</a></li>
+                </ul>
+            </div>
+        </div>
         <p>
             <i class="bi bi-person-fill"></i> {{ result['name'] }}<br>
             <i class="bi bi-calendar-range"></i> {{ result['date'] }}まで
@@ -51,6 +62,7 @@
                 href="https://social-plugins.line.me/lineit/share?url={{ url_for('work', id=result['id'], _external=True) }}"
                 rel="nofollow" target="_blank" role="button"><i class="bi bi-line"></i></a>
         </div>
+
     </div>
 </div>
 <style>
@@ -58,6 +70,10 @@
         width: 100%;
         aspect-ratio: 4 / 3;
         object-fit: contain;
+    }
+
+    .dropdown-toggle::after {
+        display: none;
     }
 </style>
 {% endblock %}

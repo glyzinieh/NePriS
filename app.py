@@ -72,14 +72,20 @@ def allowed_image(file: FileStorage) -> bool:
 
 def search_detail(id: str) -> list:
     db = main_sheet.get_all_dicts()
-    detail = next([db.index(i), i] for i in db if i['id'] == id)
-    return detail
+    try:
+        detail = next([db.index(i), i] for i in db if i['id'] == id)
+        return detail
+    except:
+        return False
 
 
 def otp_check(id: str, otp: str) -> bool:
     detail = search_detail(id)
-    return otp_generator.check(detail[1]['otp_datetime'], otp) and \
-        float(time.time()) - float(detail[1]['otp_datetime']) < 60*60
+    if detail == False:
+        return False
+    else:
+        return otp_generator.check(detail[1]['otp_datetime'], otp) and \
+            float(time.time()) - float(detail[1]['otp_datetime']) < 60*60
 
 
 def download_file(filename: str) -> BytesIO:
@@ -214,7 +220,10 @@ def privacy():
 @app.get('/work/<string:id>/')
 def work(id):
     detail = search_detail(id)[1]
-    return render_template('work.html', result=detail)
+    if detail == False:
+        return jsonify({'message': 'Not found.'}), 404
+    else:
+        return render_template('work.html', result=detail)
 
 
 @app.get('/confirm/<string:id>/')
@@ -305,4 +314,4 @@ def error_handler(error):
 
 
 if __name__ == "__main__":
-    app.run(port=8000, debug=True)
+    app.run(port=8000)
