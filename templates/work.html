@@ -40,6 +40,7 @@
         <div id="note" class="bg-light rounded border border-1 my-3"></div>
         <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
         <script>
+            marked.setOptions({ breaks: true });
             document.getElementById('note').innerHTML = marked.parse(`{{ result['note'] }}`);
         </script>
         {% endif %}
